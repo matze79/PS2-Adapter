@@ -1,0 +1,227 @@
+~~ English language file for mouse
+~~ to test copy this file to mouse.lan and run mouse
+~~ all strings can be up to 80 characters
+
+~~ Rows = 1
+MSG_START
+Microsoft (R) Mouse Driver Version 
+
+~~ Rows =  1
+MSG_START_2
+Copyright (C) Microsoft Corp. 1983-1995.  All rights reserved.
+
+
+~~ Rows = 3
+MSG_ERR_PARM
+Invalid command line parameter '%s'. Correct the command line.
+Type Mouse /? for a list of acceptable switches.
+
+
+
+~~ Rows = 3
+MSG_ERR_NOTFND
+Microsoft Mouse not found, try another 9 or 25 pin serial port
+and/or check for interrupt conflicts with other peripherals.
+Type Mouse /f to check all ports.
+
+
+
+
+~~ Rows = 3
+MSG_ERR_INTRPT_MISS
+Interrupt conflict. Change the J4 jumper on the InPort Bus board.
+See the Microsoft Bus Mouse Installation Card for instructions on 
+changing the jumper.
+
+~~ Rows = 1
+MSG_ERR_INTRPT_MULT
+Interrupt conflict. Change the jumper on the InPort card
+
+~~ Rows = 1
+MSG_END_MSX
+$
+
+~~ Rows = 1
+MSG_END
+Mouse driver installed
+
+~~ Rows = 1
+MSG_SWT
+Switch values passed to existing driver
+
+~~ Rows = 1
+MSG_ENABLED
+Mouse driver re-enabled
+
+~~ Rows = 1
+MSG_REMOVED
+Existing driver removed from memory
+
+~~ Rows = 1
+MSG_DISABLED
+Mouse driver disabled but remains resident
+
+~~ Rows = 1
+MSG_ERR_REMOVED
+Mouse driver is not resident in memory
+
+~~ Rows = 2
+MSG_ERR_CHG_PORT
+Changes have been written to your MSINPUT.INI file.
+You MUST restart your computer for changes to take effect.
+
+~~ Rows = 1
+MSG_ERR_INSTALLED
+Driver already installed
+
+~~ Rows = 1
+MSG_CNTL_NO_DSBL
+Unable to disable driver -- Control Panel is active
+
+~~ Rows = 1
+MSG_MENU_NO_DISBALE
+Unable to disable driver -- Mouse Menu is active
+
+~~ ROWS = 1
+MSG_NOT_SUPPORTED
+Mouse driver installed.  Parameters /U, /E, /X no longer supported.
+
+~~ ROWS = 3
+MSG_ERR_INDOSBOX
+The mouse driver for MS-DOS cannot be loaded from an MS-DOS session
+within Windows. Exit Windows to load the mouse driver for MS-DOS.
+
+
+~~ Rows = 23
+MSG_MOUSE_SW_INFO
+
+mouse [options]
+on     Enables Mouse
+off    Disables Mouse
+/B     Bus Mouse Type
+/Cn    Serial Mouse on Com (1,2)
+/E     Load Mouse in low memory
+/F     Find pointing device
+/Hn    Horizontal Sensitivity(5-100)
+/In    Inport Mouse Type(1,2)
+/KPnSm Button Selection, P-primary,S-secondary (1-4)
+/K     ClickLock - /KC (on), /K (off)
+/Mn    Enables Default Cursor - /M1 (on), /M (off)
+/Nn    Cursor Delay(0-10)
+/Or    Rotation Angle (0-359)
+/Q     Load driver quietly(No Display)
+/Rn    Interrupt Rate (1-4)
+/Sn    Horizontal and Vertical Sensitivity(5-100)
+/Vn    Vertical Sensitivity(5-100)
+/Y     Disables Hardware Cursor
+/Z     PS2 Mouse Type
+
+
+
+
+
+~~ The following four strings should only be 15 characters.
+~~ Rows = 1 
+AccelProfile1Str
+Low
+
+~~ Rows = 1
+AccelProfile2Str
+Medium
+
+~~ Rows = 1
+AccelProfile3Str
+High
+
+~~ Rows = 1
+AccelProfile4Str
+Unaccelerated
+
+
+~~ Rows = 1
+GeneralEnableStr
+enabled
+
+
+~~ Rows = 1
+SerialEnableStr
+enabled on COM
+
+
+~~ Rows = 1
+InPortEnableStr
+enabled on InPort
+
+
+
+~~ Rows = 1
+BUSNAMESTRING
+Bus Mouse
+
+~~ Rows = 1
+SERIALNAMESTRING
+Serial Mouse
+
+~~ Rows = 1
+SERIALBALLPOINTNAMESTRING
+Serial BallPoint Mouse
+
+~~ Rows = 1
+SERIALEASYBALLNAMESTRING
+Serial EasyBall
+
+~~ Rows = 1
+PS2NAMESTRING
+Mouse Port Device
+
+~~ Rows = 1
+PS2BALLPOINTNAMESTRING
+Mouse Port BallPoint Device
+
+~~ Rows = 1
+PS2PHOENIXFLAGSTRING
+PhoenixBIOS
+
+~~ Rows = 1
+PS2EXTENDEDBIOSSTRING
+FailIfNoExtendedBIOS
+
+~~ Rows = 1
+FALSESTRING
+FALSE
+
+~~ Rows = 1
+TRUESTRING
+TRUE
+
+~~ Rows = 1
+PENNAMESTRING
+Pen Tablet
+
+~~ Rows = 1
+INPORTNAMESTRING
+InPort Mouse
+
+~~ Rows = 1
+HPMOUSENAMESTRING
+HPMOUSE Mouse
+
+~~ Rows = 1
+HPMOUSEBALLPOINTNAMESTRING
+HPMOUSE BallPoint Mouse
+
+~~ Rows = 1
+DEVICESTRING
+Device
+
+~~ Rows = 1
+MOUSESTRING
+Mouse
+
+~~ Rows = 1
+BALLPTSTRING
+Ballpoint
+
+
+
+~~ ROWS = 0

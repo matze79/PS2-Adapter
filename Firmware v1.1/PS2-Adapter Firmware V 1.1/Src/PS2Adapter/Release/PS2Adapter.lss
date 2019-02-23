@@ -1,0 +1,2201 @@
+
+AVRASM ver. 2.1.52  C:\Dokumente und Einstellungen\Chris\Eigene Dateien\Atmel Studio\Firmware V 1.1\Src\PS2Adapter\Main.asm Sat Feb 16 15:42:21 2019
+
+[builtin](2): Including file 'C:\Programme\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRAssembler\2.1.51.64\AvrAssembler/Include\tn2313adef.inc'
+C:\Dokumente und Einstellungen\Chris\Eigene Dateien\Atmel Studio\Firmware V 1.1\Src\PS2Adapter\Main.asm(543): Including file 'C:\Dokumente und Einstellungen\Chris\Eigene Dateien\Atmel Studio\Firmware V 1.1\Src\PS2Adapter\Allgemeines.asm'
+C:\Dokumente und Einstellungen\Chris\Eigene Dateien\Atmel Studio\Firmware V 1.1\Src\PS2Adapter\Main.asm(544): Including file 'C:\Dokumente und Einstellungen\Chris\Eigene Dateien\Atmel Studio\Firmware V 1.1\Src\PS2Adapter\ps2.asm'
+C:\Dokumente und Einstellungen\Chris\Eigene Dateien\Atmel Studio\Firmware V 1.1\Src\PS2Adapter\Main.asm(545): Including file 'C:\Dokumente und Einstellungen\Chris\Eigene Dateien\Atmel Studio\Firmware V 1.1\Src\PS2Adapter\UART.asm'
+                 
+                 /*
+                 
+                 ;***** Created: 2011-02-09 12:04 ******* Source: ATtiny2313A.xml *********
+                 ;*************************************************************************
+                 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
+                 ;* 
+                 ;* Number            : AVR000
+                 ;* File Name         : "tn2313Adef.inc"
+                 ;* Title             : Register/Bit Definitions for the ATtiny2313A
+                 ;* Date              : 2011-02-09
+                 ;* Version           : 2.35
+                 ;* Support E-mail    : avr@atmel.com
+                 ;* Target MCU        : ATtiny2313A
+                 ;* 
+                 ;* DESCRIPTION
+                 ;* When including this file in the assembly program file, all I/O register 
+                 ;* names and I/O register bit names appearing in the data book can be used.
+                 ;* In addition, the six registers forming the three data pointers X, Y and 
+                 ;* Z have been assigned names XL - ZH. Highest RAM address for Internal 
+                 ;* SRAM is also defined 
+                 ;* 
+                 ;* The Register names are represented by their hexadecimal address.
+                 ;* 
+                 ;* The Register Bit names are represented by their bit number (0-7).
+                 ;* 
+                 ;* Please observe the difference in using the bit names with instructions
+                 ;* such as "sbr"/"cbr" (set/clear bit in register) and "sbrs"/"sbrc"
+                 ;* (skip if bit in register set/cleared). The following example illustrates
+                 ;* this:
+                 ;* 
+                 ;* in    r16,PORTB             ;read PORTB latch
+                 ;* sbr   r16,(1<<PB6)+(1<<PB5) ;set PB6 and PB5 (use masks, not bit#)
+                 ;* out   PORTB,r16             ;output to PORTB
+                 ;* 
+                 ;* in    r16,TIFR              ;read the Timer Interrupt Flag Register
+                 ;* sbrc  r16,TOV0              ;test the overflow flag (use bit#)
+                 ;* rjmp  TOV0_is_set           ;jump if set
+                 ;* ...                         ;otherwise do something else
+                 ;*************************************************************************
+                 
+                 #ifndef _TN2313ADEF_INC_
+                 #define _TN2313ADEF_INC_
+                 
+                 
+                 #pragma partinc 0
+                 
+                 ; ***** SPECIFY DEVICE ***************************************************
+                 .device ATtiny2313A
+                 #pragma AVRPART ADMIN PART_NAME ATtiny2313A
+                 .equ	SIGNATURE_000	= 0x1e
+                 .equ	SIGNATURE_001	= 0x91
+                 .equ	SIGNATURE_002	= 0x0a
+                 
+                 #pragma AVRPART CORE CORE_VERSION V2
+                 #pragma AVRPART CORE NEW_INSTRUCTIONS lpm rd,z+
+                 
+                 
+                 ; ***** I/O REGISTER DEFINITIONS *****************************************
+                 ; NOTE:
+                 ; Definitions marked "MEMORY MAPPED"are extended I/O ports
+                 ; and cannot be used with IN/OUT instructions
+                 .equ	SREG	= 0x3f
+                 .equ	SPL	= 0x3d
+                 .equ	OCR0B	= 0x3c
+                 .equ	GIMSK	= 0x3b
+                 .equ	EIFR	= 0x3a
+                 .equ	TIMSK	= 0x39
+                 .equ	TIFR	= 0x38
+                 .equ	SPMCSR	= 0x37
+                 .equ	OCR0A	= 0x36
+                 .equ	MCUCR	= 0x35
+                 .equ	MCUSR	= 0x34
+                 .equ	TCCR0B	= 0x33
+                 .equ	TCNT0	= 0x32
+                 .equ	OSCCAL	= 0x31
+                 .equ	TCCR0A	= 0x30
+                 .equ	TCCR1A	= 0x2f
+                 .equ	TCCR1B	= 0x2e
+                 .equ	TCNT1L	= 0x2c
+                 .equ	TCNT1H	= 0x2d
+                 .equ	OCR1AL	= 0x2a
+                 .equ	OCR1AH	= 0x2b
+                 .equ	OCR1BL	= 0x28
+                 .equ	OCR1BH	= 0x29
+                 .equ	CLKPR	= 0x26
+                 .equ	ICR1L	= 0x24
+                 .equ	ICR1H	= 0x25
+                 .equ	GTCCR	= 0x23
+                 .equ	TCCR1C	= 0x22
+                 .equ	WDTCR	= 0x21
+                 .equ	PCMSK	= 0x20
+                 .equ	EEAR	= 0x1e
+                 .equ	EEDR	= 0x1d
+                 .equ	EECR	= 0x1c
+                 .equ	PORTA	= 0x1b
+                 .equ	DDRA	= 0x1a
+                 .equ	PINA	= 0x19
+                 .equ	PORTB	= 0x18
+                 .equ	DDRB	= 0x17
+                 .equ	PINB	= 0x16
+                 .equ	GPIOR2	= 0x15
+                 .equ	GPIOR1	= 0x14
+                 .equ	GPIOR0	= 0x13
+                 .equ	PORTD	= 0x12
+                 .equ	DDRD	= 0x11
+                 .equ	PIND	= 0x10
+                 .equ	USIDR	= 0x0f
+                 .equ	USISR	= 0x0e
+                 .equ	USICR	= 0x0d
+                 .equ	UDR	= 0x0c
+                 .equ	UCSRA	= 0x0b
+                 .equ	UCSRB	= 0x0a
+                 .equ	UBRRL	= 0x09
+                 .equ	ACSR	= 0x08
+                 .equ	BODCR	= 0x07
+                 .equ	PRR	= 0x06
+                 .equ	PCMSK2	= 0x05
+                 .equ	PCMSK1	= 0x04
+                 .equ	UCSRC	= 0x03
+                 .equ	UBRRH	= 0x02
+                 .equ	DIDR	= 0x01
+                 
+                 
+                 ; ***** BIT DEFINITIONS **************************************************
+                 
+                 ; ***** PORTB ************************
+                 ; PORTB - Port B Data Register
+                 .equ	PORTB0	= 0	; Port B Data Register bit 0
+                 .equ	PB0	= 0	; For compatibility
+                 .equ	PORTB1	= 1	; Port B Data Register bit 1
+                 .equ	PB1	= 1	; For compatibility
+                 .equ	PORTB2	= 2	; Port B Data Register bit 2
+                 .equ	PB2	= 2	; For compatibility
+                 .equ	PORTB3	= 3	; Port B Data Register bit 3
+                 .equ	PB3	= 3	; For compatibility
+                 .equ	PORTB4	= 4	; Port B Data Register bit 4
+                 .equ	PB4	= 4	; For compatibility
+                 .equ	PORTB5	= 5	; Port B Data Register bit 5
+                 .equ	PB5	= 5	; For compatibility
+                 .equ	PORTB6	= 6	; Port B Data Register bit 6
+                 .equ	PB6	= 6	; For compatibility
+                 .equ	PORTB7	= 7	; Port B Data Register bit 7
+                 .equ	PB7	= 7	; For compatibility
+                 
+                 ; DDRB - Port B Data Direction Register
+                 .equ	DDB0	= 0	; Port B Data Direction Register bit 0
+                 .equ	DDB1	= 1	; Port B Data Direction Register bit 1
+                 .equ	DDB2	= 2	; Port B Data Direction Register bit 2
+                 .equ	DDB3	= 3	; Port B Data Direction Register bit 3
+                 .equ	DDB4	= 4	; Port B Data Direction Register bit 4
+                 .equ	DDB5	= 5	; Port B Data Direction Register bit 5
+                 .equ	DDB6	= 6	; Port B Data Direction Register bit 6
+                 .equ	DDB7	= 7	; Port B Data Direction Register bit 7
+                 
+                 ; PINB - Port B Input Pins
+                 .equ	PINB0	= 0	; Port B Input Pins bit 0
+                 .equ	PINB1	= 1	; Port B Input Pins bit 1
+                 .equ	PINB2	= 2	; Port B Input Pins bit 2
+                 .equ	PINB3	= 3	; Port B Input Pins bit 3
+                 .equ	PINB4	= 4	; Port B Input Pins bit 4
+                 .equ	PINB5	= 5	; Port B Input Pins bit 5
+                 .equ	PINB6	= 6	; Port B Input Pins bit 6
+                 .equ	PINB7	= 7	; Port B Input Pins bit 7
+                 
+                 
+                 ; ***** TIMER_COUNTER_0 **************
+                 ; TIMSK - Timer/Counter Interrupt Mask Register
+                 .equ	OCIE0A	= 0	; Timer/Counter0 Output Compare Match A Interrupt Enable
+                 .equ	TOIE0	= 1	; Timer/Counter0 Overflow Interrupt Enable
+                 .equ	OCIE0B	= 2	; Timer/Counter0 Output Compare Match B Interrupt Enable
+                 
+                 ; TIFR - Timer/Counter Interrupt Flag register
+                 .equ	OCF0A	= 0	; Timer/Counter0 Output Compare Flag 0A
+                 .equ	TOV0	= 1	; Timer/Counter0 Overflow Flag
+                 .equ	OCF0B	= 2	; Timer/Counter0 Output Compare Flag 0B
+                 
+                 ; OCR0B - Timer/Counter0 Output Compare Register
+                 .equ	OCR0_0	= 0	; 
+                 .equ	OCR0_1	= 1	; 
+                 .equ	OCR0_2	= 2	; 
+                 .equ	OCR0_3	= 3	; 
+                 .equ	OCR0_4	= 4	; 
+                 .equ	OCR0_5	= 5	; 
+                 .equ	OCR0_6	= 6	; 
+                 .equ	OCR0_7	= 7	; 
+                 
+                 ; OCR0A - Timer/Counter0 Output Compare Register
+                 .equ	OCR0A_0	= 0	; 
+                 .equ	OCR0A_1	= 1	; 
+                 .equ	OCR0A_2	= 2	; 
+                 .equ	OCR0A_3	= 3	; 
+                 .equ	OCR0A_4	= 4	; 
+                 .equ	OCR0A_5	= 5	; 
+                 .equ	OCR0A_6	= 6	; 
+                 .equ	OCR0A_7	= 7	; 
+                 
+                 ; TCCR0A - Timer/Counter  Control Register A
+                 .equ	WGM00	= 0	; Waveform Generation Mode
+                 .equ	WGM01	= 1	; Waveform Generation Mode
+                 .equ	COM0B0	= 4	; Compare Match Output B Mode
+                 .equ	COM0B1	= 5	; Compare Match Output B Mode
+                 .equ	COM0A0	= 6	; Compare Match Output A Mode
+                 .equ	COM0A1	= 7	; Compare Match Output A Mode
+                 
+                 ; TCNT0 - Timer/Counter0
+                 .equ	TCNT0_0	= 0	; 
+                 .equ	TCNT0_1	= 1	; 
+                 .equ	TCNT0_2	= 2	; 
+                 .equ	TCNT0_3	= 3	; 
+                 .equ	TCNT0_4	= 4	; 
+                 .equ	TCNT0_5	= 5	; 
+                 .equ	TCNT0_6	= 6	; 
+                 .equ	TCNT0_7	= 7	; 
+                 
+                 ; TCCR0B - Timer/Counter Control Register B
+                 .equ	TCCR0	= TCCR0B	; For compatibility
+                 .equ	CS00	= 0	; Clock Select
+                 .equ	CS01	= 1	; Clock Select
+                 .equ	CS02	= 2	; Clock Select
+                 .equ	WGM02	= 3	; 
+                 .equ	FOC0B	= 6	; Force Output Compare B
+                 .equ	FOC0A	= 7	; Force Output Compare B
+                 
+                 
+                 ; ***** TIMER_COUNTER_1 **************
+                 ; TIMSK - Timer/Counter Interrupt Mask Register
+                 .equ	ICIE1	= 3	; Timer/Counter1 Input Capture Interrupt Enable
+                 .equ	TICIE	= ICIE1	; For compatibility
+                 .equ	OCIE1B	= 5	; Timer/Counter1 Output CompareB Match Interrupt Enable
+                 .equ	OCIE1A	= 6	; Timer/Counter1 Output CompareA Match Interrupt Enable
+                 .equ	TOIE1	= 7	; Timer/Counter1 Overflow Interrupt Enable
+                 
+                 ; TIFR - Timer/Counter Interrupt Flag register
+                 .equ	ICF1	= 3	; Input Capture Flag 1
+                 .equ	OCF1B	= 5	; Output Compare Flag 1B
+                 .equ	OCF1A	= 6	; Output Compare Flag 1A
+                 .equ	TOV1	= 7	; Timer/Counter1 Overflow Flag
+                 
+                 ; TCCR1A - Timer/Counter1 Control Register A
+                 .equ	WGM10	= 0	; Pulse Width Modulator Select Bit 0
+                 .equ	PWM10	= WGM10	; For compatibility
+                 .equ	WGM11	= 1	; Pulse Width Modulator Select Bit 1
+                 .equ	PWM11	= WGM11	; For compatibility
+                 .equ	COM1B0	= 4	; Comparet Ouput Mode 1B, bit 0
+                 .equ	COM1B1	= 5	; Compare Output Mode 1B, bit 1
+                 .equ	COM1A0	= 6	; Comparet Ouput Mode 1A, bit 0
+                 .equ	COM1A1	= 7	; Compare Output Mode 1A, bit 1
+                 
+                 ; TCCR1B - Timer/Counter1 Control Register B
+                 .equ	CS10	= 0	; Clock Select bit 0
+                 .equ	CS11	= 1	; Clock Select 1 bit 1
+                 .equ	CS12	= 2	; Clock Select1 bit 2
+                 .equ	WGM12	= 3	; Waveform Generation Mode Bit 2
+                 .equ	CTC1	= WGM12	; For compatibility
+                 .equ	WGM13	= 4	; Waveform Generation Mode Bit 3
+                 .equ	ICES1	= 6	; Input Capture 1 Edge Select
+                 .equ	ICNC1	= 7	; Input Capture 1 Noise Canceler
+                 
+                 ; TCCR1C - Timer/Counter1 Control Register C
+                 .equ	FOC1B	= 6	; Force Output Compare for Channel B
+                 .equ	FOC1A	= 7	; Force Output Compare for Channel A
+                 
+                 
+                 ; ***** WATCHDOG *********************
+                 ; WDTCR - Watchdog Timer Control Register
+                 .equ	WDTCSR	= WDTCR	; For compatibility
+                 .equ	WDP0	= 0	; Watch Dog Timer Prescaler bit 0
+                 .equ	WDP1	= 1	; Watch Dog Timer Prescaler bit 1
+                 .equ	WDP2	= 2	; Watch Dog Timer Prescaler bit 2
+                 .equ	WDE	= 3	; Watch Dog Enable
+                 .equ	WDCE	= 4	; Watchdog Change Enable
+                 .equ	WDTOE	= WDCE	; For compatibility
+                 .equ	WDP3	= 5	; Watchdog Timer Prescaler Bit 3
+                 .equ	WDIE	= 6	; Watchdog Timeout Interrupt Enable
+                 .equ	WDIF	= 7	; Watchdog Timeout Interrupt Flag
+                 
+                 
+                 ; ***** USART ************************
+                 ; UDR - USART I/O Data Register
+                 .equ	UDR0	= 0	; USART I/O Data Register bit 0
+                 .equ	UDR1	= 1	; USART I/O Data Register bit 1
+                 .equ	UDR2	= 2	; USART I/O Data Register bit 2
+                 .equ	UDR3	= 3	; USART I/O Data Register bit 3
+                 .equ	UDR4	= 4	; USART I/O Data Register bit 4
+                 .equ	UDR5	= 5	; USART I/O Data Register bit 5
+                 .equ	UDR6	= 6	; USART I/O Data Register bit 6
+                 .equ	UDR7	= 7	; USART I/O Data Register bit 7
+                 
+                 ; UCSRA - USART Control and Status Register A
+                 .equ	USR	= UCSRA	; For compatibility
+                 .equ	MPCM	= 0	; Multi-processor Communication Mode
+                 .equ	U2X	= 1	; Double the USART Transmission Speed
+                 .equ	UPE	= 2	; USART Parity Error
+                 .equ	PE	= UPE	; For compatibility
+                 .equ	DOR	= 3	; Data overRun
+                 .equ	FE	= 4	; Framing Error
+                 .equ	UDRE	= 5	; USART Data Register Empty
+                 .equ	TXC	= 6	; USART Transmitt Complete
+                 .equ	RXC	= 7	; USART Receive Complete
+                 
+                 ; UCSRB - USART Control and Status Register B
+                 .equ	UCR	= UCSRB	; For compatibility
+                 .equ	TXB8	= 0	; Transmit Data Bit 8
+                 .equ	RXB8	= 1	; Receive Data Bit 8
+                 .equ	UCSZ2	= 2	; Character Size
+                 .equ	CHR9	= UCSZ2	; For compatibility
+                 .equ	TXEN	= 3	; Transmitter Enable
+                 .equ	RXEN	= 4	; Receiver Enable
+                 .equ	UDRIE	= 5	; USART Data register Empty Interrupt Enable
+                 .equ	TXCIE	= 6	; TX Complete Interrupt Enable
+                 .equ	RXCIE	= 7	; RX Complete Interrupt Enable
+                 
+                 ; UCSRC - USART Control and Status Register C
+                 .equ	UCPOL	= 0	; Clock Polarity
+                 .equ	UCSZ0	= 1	; Character Size Bit 0
+                 .equ	UCSZ1	= 2	; Character Size Bit 1
+                 .equ	USBS	= 3	; Stop Bit Select
+                 .equ	UPM0	= 4	; Parity Mode Bit 0
+                 .equ	UPM1	= 5	; Parity Mode Bit 1
+                 .equ	UMSEL	= 6	; USART Mode Select
+                 
+                 .equ	UBRR	= UBRRL	; For compatibility
+                 
+                 ; ***** ANALOG_COMPARATOR ************
+                 ; ACSR - Analog Comparator Control And Status Register
+                 .equ	ACIS0	= 0	; Analog Comparator Interrupt Mode Select bit 0
+                 .equ	ACIS1	= 1	; Analog Comparator Interrupt Mode Select bit 1
+                 .equ	ACIC	= 2	; 
+                 .equ	ACIE	= 3	; Analog Comparator Interrupt Enable
+                 .equ	ACI	= 4	; Analog Comparator Interrupt Flag
+                 .equ	ACO	= 5	; Analog Compare Output
+                 .equ	ACBG	= 6	; Analog Comparator Bandgap Select
+                 .equ	ACD	= 7	; Analog Comparator Disable
+                 
+                 ; DIDR - Digital Input Disable Register 1
+                 .equ	AIN0D	= 0	; AIN0 Digital Input Disable
+                 .equ	AIN1D	= 1	; AIN1 Digital Input Disable
+                 
+                 
+                 ; ***** PORTD ************************
+                 ; PORTD - Data Register, Port D
+                 .equ	PORTD0	= 0	; 
+                 .equ	PD0	= 0	; For compatibility
+                 .equ	PORTD1	= 1	; 
+                 .equ	PD1	= 1	; For compatibility
+                 .equ	PORTD2	= 2	; 
+                 .equ	PD2	= 2	; For compatibility
+                 .equ	PORTD3	= 3	; 
+                 .equ	PD3	= 3	; For compatibility
+                 .equ	PORTD4	= 4	; 
+                 .equ	PD4	= 4	; For compatibility
+                 .equ	PORTD5	= 5	; 
+                 .equ	PD5	= 5	; For compatibility
+                 .equ	PORTD6	= 6	; 
+                 .equ	PD6	= 6	; For compatibility
+                 
+                 ; DDRD - Data Direction Register, Port D
+                 .equ	DDD0	= 0	; 
+                 .equ	DDD1	= 1	; 
+                 .equ	DDD2	= 2	; 
+                 .equ	DDD3	= 3	; 
+                 .equ	DDD4	= 4	; 
+                 .equ	DDD5	= 5	; 
+                 .equ	DDD6	= 6	; 
+                 
+                 ; PIND - Input Pins, Port D
+                 .equ	PIND0	= 0	; 
+                 .equ	PIND1	= 1	; 
+                 .equ	PIND2	= 2	; 
+                 .equ	PIND3	= 3	; 
+                 .equ	PIND4	= 4	; 
+                 .equ	PIND5	= 5	; 
+                 .equ	PIND6	= 6	; 
+                 
+                 
+                 ; ***** EEPROM ***********************
+                 ; EEAR - EEPROM Read/Write Access
+                 .equ	EEARL	= EEAR	; For compatibility
+                 .equ	EEAR0	= 0	; EEPROM Read/Write Access bit 0
+                 .equ	EEAR1	= 1	; EEPROM Read/Write Access bit 1
+                 .equ	EEAR2	= 2	; EEPROM Read/Write Access bit 2
+                 .equ	EEAR3	= 3	; EEPROM Read/Write Access bit 3
+                 .equ	EEAR4	= 4	; EEPROM Read/Write Access bit 4
+                 .equ	EEAR5	= 5	; EEPROM Read/Write Access bit 5
+                 .equ	EEAR6	= 6	; EEPROM Read/Write Access bit 6
+                 
+                 ; EEDR - EEPROM Data Register
+                 .equ	EEDR0	= 0	; EEPROM Data Register bit 0
+                 .equ	EEDR1	= 1	; EEPROM Data Register bit 1
+                 .equ	EEDR2	= 2	; EEPROM Data Register bit 2
+                 .equ	EEDR3	= 3	; EEPROM Data Register bit 3
+                 .equ	EEDR4	= 4	; EEPROM Data Register bit 4
+                 .equ	EEDR5	= 5	; EEPROM Data Register bit 5
+                 .equ	EEDR6	= 6	; EEPROM Data Register bit 6
+                 .equ	EEDR7	= 7	; EEPROM Data Register bit 7
+                 
+                 ; EECR - EEPROM Control Register
+                 .equ	EERE	= 0	; EEPROM Read Enable
+                 .equ	EEPE	= 1	; EEPROM Write Enable
+                 .equ	EEWE	= EEPE	; For compatibility
+                 .equ	EEMPE	= 2	; EEPROM Master Write Enable
+                 .equ	EEMWE	= EEMPE	; For compatibility
+                 .equ	EERIE	= 3	; EEProm Ready Interrupt Enable
+                 .equ	EEPM0	= 4	; 
+                 .equ	EEPM1	= 5	; 
+                 
+                 
+                 ; ***** PORTA ************************
+                 ; PORTA - Port A Data Register
+                 .equ	PORTA0	= 0	; Port A Data Register bit 0
+                 .equ	PA0	= 0	; For compatibility
+                 .equ	PORTA1	= 1	; Port A Data Register bit 1
+                 .equ	PA1	= 1	; For compatibility
+                 .equ	PORTA2	= 2	; Port A Data Register bit 2
+                 .equ	PA2	= 2	; For compatibility
+                 
+                 ; DDRA - Port A Data Direction Register
+                 .equ	DDA0	= 0	; Data Direction Register, Port A, bit 0
+                 .equ	DDA1	= 1	; Data Direction Register, Port A, bit 1
+                 .equ	DDA2	= 2	; Data Direction Register, Port A, bit 2
+                 
+                 ; PINA - Port A Input Pins
+                 .equ	PINA0	= 0	; Input Pins, Port A bit 0
+                 .equ	PINA1	= 1	; Input Pins, Port A bit 1
+                 .equ	PINA2	= 2	; Input Pins, Port A bit 2
+                 
+                 
+                 ; ***** USI **************************
+                 ; USIDR - USI Data Register
+                 .equ	USIDR0	= 0	; USI Data Register bit 0
+                 .equ	USIDR1	= 1	; USI Data Register bit 1
+                 .equ	USIDR2	= 2	; USI Data Register bit 2
+                 .equ	USIDR3	= 3	; USI Data Register bit 3
+                 .equ	USIDR4	= 4	; USI Data Register bit 4
+                 .equ	USIDR5	= 5	; USI Data Register bit 5
+                 .equ	USIDR6	= 6	; USI Data Register bit 6
+                 .equ	USIDR7	= 7	; USI Data Register bit 7
+                 
+                 ; USISR - USI Status Register
+                 .equ	USICNT0	= 0	; USI Counter Value Bit 0
+                 .equ	USICNT1	= 1	; USI Counter Value Bit 1
+                 .equ	USICNT2	= 2	; USI Counter Value Bit 2
+                 .equ	USICNT3	= 3	; USI Counter Value Bit 3
+                 .equ	USIDC	= 4	; Data Output Collision
+                 .equ	USIPF	= 5	; Stop Condition Flag
+                 .equ	USIOIF	= 6	; Counter Overflow Interrupt Flag
+                 .equ	USISIF	= 7	; Start Condition Interrupt Flag
+                 
+                 ; USICR - USI Control Register
+                 .equ	USITC	= 0	; Toggle Clock Port Pin
+                 .equ	USICLK	= 1	; Clock Strobe
+                 .equ	USICS0	= 2	; USI Clock Source Select Bit 0
+                 .equ	USICS1	= 3	; USI Clock Source Select Bit 1
+                 .equ	USIWM0	= 4	; USI Wire Mode Bit 0
+                 .equ	USIWM1	= 5	; USI Wire Mode Bit 1
+                 .equ	USIOIE	= 6	; Counter Overflow Interrupt Enable
+                 .equ	USISIE	= 7	; Start Condition Interrupt Enable
+                 
+                 
+                 ; ***** EXTERNAL_INTERRUPT ***********
+                 ; GIMSK - General Interrupt Mask Register
+                 .equ	PCIE	= 5	; 
+                 .equ	INT0	= 6	; External Interrupt Request 0 Enable
+                 .equ	INT1	= 7	; External Interrupt Request 1 Enable
+                 
+                 ; EIFR - Extended Interrupt Flag Register
+                 .equ	GIFR	= EIFR	; For compatibility
+                 .equ	PCIF	= 5	; 
+                 .equ	INTF0	= 6	; External Interrupt Flag 0
+                 .equ	INTF1	= 7	; External Interrupt Flag 1
+                 
+                 ; PCMSK2 - Pin Change Interrupt Mask Register 2
+                 .equ	PCINT11	= 0	; Pin Change Interrupt Mask 11
+                 .equ	PCINT12	= 1	; Pin Change Interrupt Mask 12
+                 .equ	PCINT13	= 2	; Pin Change Interrupt Mask 13
+                 .equ	PCINT14	= 3	; Pin Change Interrupt Mask 14
+                 .equ	PCINT15	= 4	; Pin Change Interrupt Mask 15
+                 .equ	PCINT16	= 5	; Pin Change Interrupt Mask 16
+                 .equ	PCINT17	= 6	; Pin Change Interrupt Mask 17
+                 
+                 ; PCMSK1 - Pin Change Interrupt Mask Register 1
+                 .equ	PCINT8	= 0	; Pin Change Interrupt Mask 8
+                 .equ	PCINT9	= 1	; Pin Change Interrupt Mask 9
+                 .equ	PCINT10	= 2	; Pin Change Interrupt Mask 10
+                 
+                 
+                 ; ***** CPU **************************
+                 ; SREG - Status Register
+                 .equ	SREG_C	= 0	; Carry Flag
+                 .equ	SREG_Z	= 1	; Zero Flag
+                 .equ	SREG_N	= 2	; Negative Flag
+                 .equ	SREG_V	= 3	; Two's Complement Overflow Flag
+                 .equ	SREG_S	= 4	; Sign Bit
+                 .equ	SREG_H	= 5	; Half Carry Flag
+                 .equ	SREG_T	= 6	; Bit Copy Storage
+                 .equ	SREG_I	= 7	; Global Interrupt Enable
+                 
+                 ; SPMCSR - Store Program Memory Control and Status register
+                 .equ	SPMEN	= 0	; Store Program Memory Enable
+                 .equ	PGERS	= 1	; Page Erase
+                 .equ	PGWRT	= 2	; Page Write
+                 .equ	RFLB	= 3	; Read Fuse and Lock Bits
+                 .equ	CTPB	= 4	; Clear Temporary Page Buffer
+                 
+                 ; MCUCR - MCU Control Register
+                 .equ	ISC00	= 0	; Interrupt Sense Control 0 bit 0
+                 .equ	ISC01	= 1	; Interrupt Sense Control 0 bit 1
+                 .equ	ISC10	= 2	; Interrupt Sense Control 1 bit 0
+                 .equ	ISC11	= 3	; Interrupt Sense Control 1 bit 1
+                 .equ	SM0	= 4	; Sleep Mode Select Bit 0
+                 .equ	SM	= SM0	; For compatibility
+                 .equ	SE	= 5	; Sleep Enable
+                 .equ	SM1	= 6	; Sleep Mode Select Bit 1
+                 .equ	PUD	= 7	; Pull-up Disable
+                 
+                 ; CLKPR - Clock Prescale Register
+                 .equ	CLKPS0	= 0	; Clock Prescaler Select Bit 0
+                 .equ	CLKPS1	= 1	; Clock Prescaler Select Bit 1
+                 .equ	CLKPS2	= 2	; Clock Prescaler Select Bit 2
+                 .equ	CLKPS3	= 3	; Clock Prescaler Select Bit 3
+                 .equ	CLKPCE	= 7	; Clock Prescaler Change Enable
+                 
+                 ; MCUSR - MCU Status register
+                 .equ	PORF	= 0	; Power-On Reset Flag
+                 .equ	EXTRF	= 1	; External Reset Flag
+                 .equ	BORF	= 2	; Brown-out Reset Flag
+                 .equ	WDRF	= 3	; Watchdog Reset Flag
+                 
+                 ; OSCCAL - Oscillator Calibration Register
+                 .equ	CAL0	= 0	; Oscillatro Calibration Value Bit 0
+                 .equ	CAL1	= 1	; Oscillatro Calibration Value Bit 1
+                 .equ	CAL2	= 2	; Oscillatro Calibration Value Bit 2
+                 .equ	CAL3	= 3	; Oscillatro Calibration Value Bit 3
+                 .equ	CAL4	= 4	; Oscillatro Calibration Value Bit 4
+                 .equ	CAL5	= 5	; Oscillatro Calibration Value Bit 5
+                 .equ	CAL6	= 6	; Oscillatro Calibration Value Bit 6
+                 
+                 ; GTCCR - General Timer Counter Control Register
+                 .equ	SFIOR	= GTCCR	; For compatibility
+                 .equ	PSR10	= 0	; 
+                 
+                 ; PCMSK - Pin-Change Mask register
+                 .equ	PCINT0	= 0	; Pin-Change Interrupt 0
+                 .equ	PCINT1	= 1	; Pin-Change Interrupt 1
+                 .equ	PCINT2	= 2	; Pin-Change Interrupt 2
+                 .equ	PCINT3	= 3	; Pin-Change Interrupt 3
+                 .equ	PCINT4	= 4	; Pin-Change Interrupt 4
+                 .equ	PCINT5	= 5	; Pin-Change Interrupt 5
+                 .equ	PCINT6	= 6	; Pin-Change Interrupt 6
+                 .equ	PCINT7	= 7	; Pin-Change Interrupt 7
+                 
+                 ; GPIOR2 - General Purpose I/O Register 2
+                 .equ	GPIOR20	= 0	; General Purpose I/O Register 2 bit 0
+                 .equ	GPIOR21	= 1	; General Purpose I/O Register 2 bit 1
+                 .equ	GPIOR22	= 2	; General Purpose I/O Register 2 bit 2
+                 .equ	GPIOR23	= 3	; General Purpose I/O Register 2 bit 3
+                 .equ	GPIOR24	= 4	; General Purpose I/O Register 2 bit 4
+                 .equ	GPIOR25	= 5	; General Purpose I/O Register 2 bit 5
+                 .equ	GPIOR26	= 6	; General Purpose I/O Register 2 bit 6
+                 .equ	GPIOR27	= 7	; General Purpose I/O Register 2 bit 7
+                 
+                 ; GPIOR1 - General Purpose I/O Register 1
+                 .equ	GPIOR10	= 0	; General Purpose I/O Register 1 bit 0
+                 .equ	GPIOR11	= 1	; General Purpose I/O Register 1 bit 1
+                 .equ	GPIOR12	= 2	; General Purpose I/O Register 1 bit 2
+                 .equ	GPIOR13	= 3	; General Purpose I/O Register 1 bit 3
+                 .equ	GPIOR14	= 4	; General Purpose I/O Register 1 bit 4
+                 .equ	GPIOR15	= 5	; General Purpose I/O Register 1 bit 5
+                 .equ	GPIOR16	= 6	; General Purpose I/O Register 1 bit 6
+                 .equ	GPIOR17	= 7	; General Purpose I/O Register 1 bit 7
+                 
+                 ; GPIOR0 - General Purpose I/O Register 0
+                 .equ	GPIOR00	= 0	; General Purpose I/O Register 0 bit 0
+                 .equ	GPIOR01	= 1	; General Purpose I/O Register 0 bit 1
+                 .equ	GPIOR02	= 2	; General Purpose I/O Register 0 bit 2
+                 .equ	GPIOR03	= 3	; General Purpose I/O Register 0 bit 3
+                 .equ	GPIOR04	= 4	; General Purpose I/O Register 0 bit 4
+                 .equ	GPIOR05	= 5	; General Purpose I/O Register 0 bit 5
+                 .equ	GPIOR06	= 6	; General Purpose I/O Register 0 bit 6
+                 .equ	GPIOR07	= 7	; General Purpose I/O Register 0 bit 7
+                 
+                 ; PRR - Power reduction register
+                 .equ	PRUSART	= 0	; 
+                 .equ	PRUSI	= 1	; 
+                 .equ	PRTIM0	= 2	; 
+                 .equ	PRTIM1	= 3	; 
+                 
+                 ; BODCR - BOD control register
+                 .equ	BPDSE	= 0	; 
+                 .equ	BPDS	= 1	; 
+                 
+                 
+                 
+                 ; ***** LOCKSBITS ********************************************************
+                 .equ	LB1	= 0	; Lockbit
+                 .equ	LB2	= 1	; Lockbit
+                 
+                 
+                 ; ***** FUSES ************************************************************
+                 ; LOW fuse bits
+                 .equ	CKSEL0	= 0	; Select Clock Source
+                 .equ	CKSEL1	= 1	; Select Clock Source
+                 .equ	CKSEL2	= 2	; Select Clock Source
+                 .equ	CKSEL3	= 3	; Select Clock Source
+                 .equ	SUT0	= 4	; Select start-up time
+                 .equ	SUT1	= 5	; Select start-up time
+                 .equ	CKOUT	= 6	; Clock output
+                 .equ	CKDIV8	= 7	; Divide clock by 8
+                 
+                 ; HIGH fuse bits
+                 .equ	BODLEVEL0	= 0	; Brown-out Detector trigger level
+                 .equ	BODLEVEL1	= 1	; Brown-out Detector trigger level
+                 .equ	BODLEVEL2	= 2	; Brown-out Detector trigger level
+                 .equ	EESAVE	= 3	; EEPROM memory is preserved through chip erase
+                 .equ	WDTON	= 4	; Watchdog Timer Always On
+                 .equ	SPIEN	= 5	; Enable Serial programming and Data Downloading
+                 .equ	DWEN	= 6	; debugWIRE Enable
+                 .equ	RSTDISBL	= 7	; External reset disable
+                 
+                 ; EXTENDED fuse bits
+                 .equ	SELFPRGEN	= 0	; Self Programming Enable
+                 
+                 
+                 
+                 ; ***** CPU REGISTER DEFINITIONS *****************************************
+                 .def	XH	= r27
+                 .def	XL	= r26
+                 .def	YH	= r29
+                 .def	YL	= r28
+                 .def	ZH	= r31
+                 .def	ZL	= r30
+                 
+                 
+                 
+                 ; ***** DATA MEMORY DECLARATIONS *****************************************
+                 .equ	FLASHEND	= 0x03ff	; Note: Word address
+                 .equ	IOEND	= 0x003f
+                 .equ	SRAM_START	= 0x0060
+                 .equ	SRAM_SIZE	= 128
+                 .equ	RAMEND	= 0x00df
+                 .equ	XRAMEND	= 0x0000
+                 .equ	E2END	= 0x007f
+                 .equ	EEPROMEND	= 0x007f
+                 .equ	EEADRBITS	= 7
+                 #pragma AVRPART MEMORY PROG_FLASH 2048
+                 #pragma AVRPART MEMORY EEPROM 128
+                 #pragma AVRPART MEMORY INT_SRAM SIZE 128
+                 #pragma AVRPART MEMORY INT_SRAM START_ADDR 0x60
+                 
+                 
+                 
+                 ; ***** BOOTLOADER DECLARATIONS ******************************************
+                 .equ	NRWW_START_ADDR	= 0x0
+                 .equ	NRWW_STOP_ADDR	= 0x3ff
+                 .equ	RWW_START_ADDR	= 0x0
+                 .equ	RWW_STOP_ADDR	= 0x0
+                 .equ	PAGESIZE	= 16
+                 
+                 
+                 
+                 ; ***** INTERRUPT VECTORS ************************************************
+                 .equ	INT0addr	= 0x0001	; External Interrupt Request 0
+                 .equ	INT1addr	= 0x0002	; External Interrupt Request 1
+                 .equ	ICP1addr	= 0x0003	; Timer/Counter1 Capture Event
+                 .equ	OC1Aaddr	= 0x0004	; Timer/Counter1 Compare Match A
+                 .equ	OC1addr	= 0x0004	; For compatibility
+                 .equ	OVF1addr	= 0x0005	; Timer/Counter1 Overflow
+                 .equ	OVF0addr	= 0x0006	; Timer/Counter0 Overflow
+                 .equ	URXCaddr	= 0x0007	; USART, Rx Complete
+                 .equ	URXC0addr	= 0x0007	; For compatibility
+                 .equ	UDREaddr	= 0x0008	; USART Data Register Empty
+                 .equ	UDRE0addr	= 0x0008	; For compatibility
+                 .equ	UTXCaddr	= 0x0009	; USART, Tx Complete
+                 .equ	UTXC0addr	= 0x0009	; For compatibility
+                 .equ	ACIaddr	= 0x000a	; Analog Comparator
+                 .equ	PCIBaddr	= 0x000b	; Pin Change Interrupt Request B
+                 .equ	PCIaddr	= 0x000b	; For compatibility
+                 .equ	OC1Baddr	= 0x000c	; 
+                 .equ	OC0Aaddr	= 0x000d	; 
+                 .equ	OC0Baddr	= 0x000e	; 
+                 .equ	USI_STARTaddr	= 0x000f	; USI Start Condition
+                 .equ	USI_OVFaddr	= 0x0010	; USI Overflow
+                 .equ	ERDYaddr	= 0x0011	; 
+                 .equ	WDTaddr	= 0x0012	; Watchdog Timer Overflow
+                 .equ	PCIAaddr	= 0x0013	; Pin Change Interrupt Request A
+                 .equ	PCIDaddr	= 0x0014	; Pin Change Interrupt Request D
+                 
+                 .equ	INT_VECTORS_SIZE	= 21	; size in words
+                 
+                 #endif  /* _TN2313ADEF_INC_ */
+                 
+                 ; ***** END OF FILE ******************************************************
+                 
+                  *  Copyright (C) 2016 Christian Machill
+                  *
+                  *  This program is free software; you can redistribute it and/or modify
+                  *  it under the terms of the GNU General Public License as published by
+                  *  the Free Software Foundation; either version 3 of the License, or
+                  *  (at your option) any later version.
+                  *  
+                  *  This program is distributed in the hope that it will be useful,
+                  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+                  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+                  *  GNU General Public License for more details.
+                  *
+                  *  You should have received a copy of the GNU General Public License
+                  *  along with this program; if not, write to the Free Software Foundation,
+                  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+                  *
+                  */
+                 
+                  /*
+                  * Main.asm
+                  *
+                  *  Created Version 1.0 : 11.09.2016
+                  *   Author: Christian Machill
+                  *
+                  *  Updated auf Version 1.1 : 11.02.2018
+                  *   Author: Christian Machill
+                  *
+                  *   Änderungen in Version 1.1
+                  *	- Unterstützung für Microsoft Wheel Maus
+                  *	- Das Emulierte Maus-Protokoll ist jetzt unabhängig von der angeschlossenen Maus.
+                  *	  Es kann also auch eine MS-Wheel Maus emuliert werden, wenn nur eine normale 2-Tasten PS2-Maus 
+                  *	  ohne Scrollrad angeschlossen ist.
+                  *  - Das zu emulierende Maus-Protokoll kann jetzt frei konfiguriert werden. Entweder über das Einstellungs-Programm
+                  *	  aus dem nächsten Punkt, oder über die DIP-Switches auf dem PS2-Adapter, falls vorhanden. 
+                  *    Der Switch hat dabei die folgenden Einstellmöglichkeiten:
+                  *		Switch  1		2
+                  *				OFF		OFF		- automatische Mausauswahl / Einstellung per Software
+                  *				ON		OFF		- Microsoft 2-Tasten Maus
+                  *				OFF		ON		- Logitech Maus
+                  *				ON		ON		- Microsoft Wheel Maus
+                  *	  
+                  *	- Optimierung des Programcode's, damit mehr Platz im FLASH-Rom für weitere Funktionen frei wird.
+                  *	- Die Firmware enthält jetzt einen Settings-Modus, mit dem es möglich ist, über die Serielle 
+                  *	  Schnittstelle einige Einstellungen für die angeschlossene PS2-Maus und den Mausadapter zu konfigurieren.
+                  *    Dazu wird das beiliegende DOS-Tool "PS2MASET.EXE" benötigt. Ruft mann dieses Programm ohne Parameter auf, 
+                  *	  bekommt mann eine kleine Hilfe mit den möglichen Parametern angezeigt. Die Einstellungen werden direkt 
+                  *	  im EEProm des Adapters gespeichert, müssen also nicht bei jedem Neustart des Rechners wiederholt werden.
+                  *	  Mit diesen Einstellungen kann mann sowohl den emulierten Maustype festlegen, als auch die Auflösung, Samplerate
+                  *	  und Skalierung. Des weiteren kann mann sich Informationen zu den aktuellen Einstellungen anzeigen lassen.
+                  *  - Die Kommunikation des PC's mit dem PS2-Adapter erfolgt nei den meisten Mäusen mit 1200 Baud. Ab jetzt kann 
+                  *    die Baudrate auf 19200 Baud erhöht werden. Dadurch kann mann ein Problem beheben, das beim Betrieb an 
+                  *	  einigen KVM-Switches auftritt. Die Maus reagiert dort verzögert. Die Umstellung auf 19200 Baud setzt 
+                  *    natürlich angepasste Maustreiber auf dem PC vorraus. 
+                  */ 
+                 
+                 
+                  ; Taktfrequenz 
+                 .equ FREQ = 8000000
+                 
+                 ; Port und Pins der PS2-Maus
+                 .equ PS2_Port = PORTD
+                 .equ PS2_DDR = DDRD
+                 .equ PS2_PIN = PIND
+                 .equ PS2_Clock = 6
+                 .equ PS2_Data = 5
+                 ; Port und Pins der Seriellen Schnittstelle
+                 .equ UART_Port = PORTD
+                 .equ UART_DDR = DDRD
+                 .equ UART_Pin = PIND
+                 .equ UART_RTS = 3
+                 ; Port und Pins der LED's
+                 .equ LED_On_Ground = 0
+                 .equ LED_DDR = DDRB
+                 .equ LED_PORT = PORTB
+                 .equ LED_1 = 1
+                 .equ LED_2 = 2
+                 ; Port und Pins der Switches
+                 .equ Switch_DDR = DDRB
+                 .equ Switch_PIN = PINB
+                 .equ Switch_Port = PORTB
+                 .equ Switch_1 = 3
+                 .equ Switch_2 = 4
+                 ; Port und Pins des LCD
+                 .equ LCD_Enabled = 0
+                 .equ LCD_SteuerPort = PORTD
+                 .equ LCD_SteuerDDR = DDRD
+                 .equ LCD_DatenPort = PORTB
+                 .equ LCD_DatenDDR = DDRB
+                 .equ LCD_PIN_RS = 2
+                 .equ LCD_PIN_E = 4
+                 .equ LCD_PinDB0 = 0
+                 .equ LCD_PinDB1 = 5
+                 .equ LCD_PinDB2 = 6
+                 .equ LCD_PinDB3 = 7
+                 ;
+                 .equ EEProm_EnableDisable = 0x20	; ab dieser Adresse hinterlegen wir, welche Settings gespeichert wurden
+                 .equ EEProm_Samplerate = 0x00		; Adresse im EEProm für die Einstellung der Samplerate
+                 .equ EEProm_Resolution = 0x01		; Adresse im EEProm für die Einstellung der Resolution
+                 .equ EEProm_Scaling = 0x02			; Adresse im EEProm für die Einstellung der Skalierung
+                 .equ EEProm_MouseType = 0x03		; Adresse im EEProm für die Einstellung des Maustypes
+                 .equ EEProm_Baudrate = 0x04
+                 .org 0x000
+000000 c000      	rjmp Hauptprogramm
+                 ; #######################################
+                 ; ### Hauptprogramm
+                 ; #######################################
+                 Hauptprogramm:
+                 	; Stackpointer initialisieren
+000001 ed0f      	ldi ax, LOW(RAMEND)			
+000002 bf0d      	out SPL, ax
+                 	; ##########################################
+                 	; ### Zustand der DIP-Switches ermitteln
+                 	; ##########################################
+000003 98bb      	cbi Switch_DDR, Switch_1
+000004 98bc      	cbi Switch_DDR, Switch_2
+000005 0000      	nop
+000006 0000      	nop
+000007 9ac3      	sbi Switch_Port, Switch_1
+000008 9ac4      	sbi Switch_Port, Switch_2
+000009 0000      	nop
+00000a 0000      	nop
+00000b 2700      	eor ax, ax
+00000c b316      	in bx, Switch_PIN
+00000d ff13      	sbrs bx, Switch_1
+00000e 6001      	sbr ax, 1
+00000f ff14      	sbrs bx, Switch_2
+000010 6002      	sbr ax, 2
+000011 2f50      	mov HardwareSelectedMouse, ax			; 0 = Automatik, 1 = Microsoft Mouse, 2 = Logitech Mouse, 3 = Microsoft Wheel Mouse
+                 	; ##########################################
+                 	; ### ggf. LCD Initialisieren
+                 	; ##########################################
+                 	.if LCD_Enabled==1
+                 	.endif
+                 	; ##########################################
+                 	; ### Set PS2-Clock Pin High
+                 	; ##########################################
+000012 9a96      	sbi PS2_Port, PS2_Clock
+000013 988e      	cbi PS2_DDR, PS2_Clock
+                 	; Set PS2-Data Pin High
+000014 9a95      	sbi PS2_Port, PS2_Data
+000015 988d      	cbi PS2_DDR, PS2_Data
+                 	;
+000016 2700      	eor ax, ax
+000017 2f90      	mov SettingMode, ax
+000018 2e30      	mov CheckRTSWhileWait, ax
+000019 2e50      	mov UART_RTS_OldState, ax			; Register intialisieren (Dieses Register nutzen wir später, um eine fallende Flanke am RTS-Pin zu erkennen)
+                 	; ### nach dem Einschalten warten wir etwas (die Maus braucht Zeit um sich selbst zu initialisieren)
+00001a ec38      	ldi dx, 200
+                 WLT1:
+00001b e803      	ldi ax, Wait_10ms
+00001c d0f4      	rcall WaitMS
+00001d 953a      	dec dx
+00001e f7e1      	brne WLT1
+                 	; ##################################
+                 	; ### PS2-Maus Initialisieren
+                 	; ##################################
+00001f d1cd      	rcall PS2_Init							; OK, Versuchen wir die PS2-Maus zu initialisieren
+000020 d0e2      	rcall LED2_On							; LED2 anschalten, um zu signalisieren, das die PS2-Maus erkannt wurde
+                 	; ### auf Wheel-Mouse testen
+000021 e072      	ldi PS2_MouseType, MouseType_Logitech	; Variable für Maustyp initialisieren (als Standardtyp nehmen wir die Logitech-Maus, da ihr Protokoll 3 Button's unterstützt)
+000022 d210      	rcall PS2_CheckWheelMouse			; Prüfen, ob die Maus ein Scrollrad hat (die DeviceID wird neu ermittelt)
+000023 f020      	brcs SerMouseInit					; Sprung wenn nicht
+000024 2300      	tst ax								; in ax ist die DeviceID, ist die DeviceID > 0 ?
+000025 f011      	breq SerMouseInit					; Sprung wenn nicht
+000026 e073      	ldi PS2_MouseType, MouseType_MicrosoftWheelMouse	; OK, es ist eine Wheelmaus, dann nutzen wir als Maustyp die MS-Wheelmaus
+000027 c000      	rjmp SerMouseInit
+                 	; ##################################
+                 	; ### Type der Seriellen Maus ermitteln
+                 	; ##################################
+                 SerMouseInit:
+000028 3050      	cpi HardwareSelectedMouse, MouseType_Automatik	; ist der Maustyp über die Switches ausgewählt ?
+000029 f011      	breq SMI1										; Nein, dann Sprung
+00002a 2f85      	mov SER_Mousetype, HardwareSelectedMouse		; Ja, also Maustype anhand der Switches setzen
+00002b c018      	rjmp UInit
+                 SMI1:
+00002c e0e3      	ldi ZL, EEProm_MouseType						; Prüfen, ob für den Maustyp eine Einstellung vorhanden ist
+00002d d0b0      	rcall EE_ReadSetting
+00002e f020      	brcs SMI2										; Nein, dann Sprung
+00002f 3000      	cpi ax, MouseType_Automatik						; Wenn in den Einstellungen Automatik steht, dann weiter prüfen
+000030 f011      	breq SMI2				
+000031 2f80      	mov SER_Mousetype, ax							; ansonsten den Maustyp aus den Einstellungen setzen
+000032 c001      	rjmp PS_SetSettings
+                 SMI2:					
+000033 2f87      	mov SER_Mousetype, PS2_Mousetype				; Einfach den selben Maustyp setzen, wie PS2
+                 	; ##############################################################
+                 	; ### Einstellugen der PS2-Maus aus dem EEProm laden und nutzen
+                 	; ##############################################################
+                 PS_SetSettings:
+000034 e0e0      	ldi ZL, EEProm_Samplerate						
+000035 d0a8      	rcall EE_ReadSetting							; Samplerate lesen
+000036 f008      	brcs PSS1										; Sprung, wenn keine Einstellung vorhanden
+000037 d1f0      	rcall PS2_SetSampleRate							; ansonsten die Samplerate setzen
+                 PSS1:
+000038 e0e1      	ldi ZL, EEProm_Resolution						
+000039 d0a4      	rcall EE_ReadSetting							; Resolution lesen
+00003a f008      	brcs PSS2										; Sprung, wenn keine Einstellung vorhanden
+00003b d1d0      	rcall PS2_SetResolution							; ansonsten die Resolution setzen
+                 PSS2:
+00003c e0e2      	ldi ZL, EEProm_Scaling						
+00003d d0a0      	rcall EE_ReadSetting							; Scaling lesen
+00003e f028      	brcs UInit										; Sprung, wenn keine Einstellung vorhanden
+00003f 3001      	cpi ax, 1
+000040 f011      	breq PSS3
+000041 d1d3      	rcall PS2_Set_SetScaling11						; Scaling 1zu1 setzen
+000042 c001      	rjmp UInit
+                 PSS3:
+000043 d1d4      	rcall PS2_Set_SetScaling21						; Scaling 2zu1 setzen
+                 	; ### UART initialisieren
+                 UInit:
+000044 2466      	eor Baudrate, Baudrate
+000045 e0e4      	ldi ZL, EEProm_Baudrate						
+000046 d097      	rcall EE_ReadSetting							; Baudrate einlesen
+000047 f008      	brcs UInit1
+000048 2e60      	mov Baudrate, ax
+                 UInit1:
+000049 d214      	rcall UART_Init									; UART initialisieren
+00004a d1bb      	rcall PS2_EnableDataReporting		; Data-Reporting der Maus aktivieren. Die Maus sendet sonst keine Bewegungsdaten
+00004b ef0f      	ldi ax, 0xFF
+00004c 2e30      	mov CheckRTSWhileWait, ax
+                 	; ##################################################
+                 	; ### ab hier beginnt unsere Hauptschleife
+                 	; ##################################################
+                 MainLoop:	
+00004d d0ad      	rcall LED1_Off
+00004e 988b      	cbi UART_DDR, UART_RTS
+00004f d1fd      	rcall PS2_GetMouseDatenpaket		; Mausdaten von der PS2-Maus ermitteln
+000050 f010      	brcs Main_AfterPS2Read				; Fehler -> dann Sprung
+000051 d0ad      	rcall LED1_On
+000052 d24b      	rcall UART_SendMouseData			; Datenpacket umwandeln und über serielle Schnittstelle senden
+                 Main_AfterPS2Read:
+                 	; ### prüfen, ob Zeichen über die Serielle Schnittstelle an uns geschickt wurden, 
+                 	; ### wenn ja, dann einlesen. Ist es ein großes S, dann in den Settingsmode springen
+000053 d222      	rcall UART_ByteAvailable
+000054 f430      	brcc GC1
+000055 d21c      	rcall UART_ReadByte
+000056 3503      	cpi ax, 'S'
+000057 f419      	brne GC1
+000058 e40f      	ldi ax, 'O'
+000059 d214      	rcall UART_WriteByte
+00005a d001      	rcall SettingsMode
+                 GC1:
+                 	; ### alle Jobs in diesem Schleifendurchlauf abgearbeitet -> von Vorne anfangen
+00005b cff1      	rjmp MainLoop
+                 
+                 ; ################################################################################################
+                 ; ### Settingsmode - Es werden über die Serielle Schnittstelle Commandos empfangen, und ausgeführt
+                 ; ### Commandos: 
+                 ; ###	Q = Quit Settingsmode 
+                 ; ###	B = Set Baudrate	
+                 ; ###		    IN: 0 = 1200 Baud, 1 = 19200 Baud
+                 ; ###			OUT: 'O' = OK or 'E' = Error
+                 ; ###	R = Set Resolution	
+                 ; ###		    IN: 0 = 1count/mm, 1 = 2count/mm, 2=4count/mm, 3=8count/mm
+                 ; ###			OUT: 'O' = OK or 'E' = Error
+                 ; ###	C = Set Scalling	
+                 ; ###			IN: 0 = 1 zu 1, 1 = 2 zu 1
+                 ; ###			OUT: 'O' = OK or 'E' = Error
+                 ; ###	S = Set Samplerate	
+                 ; ###			IN: Samplerate div 2 (Beispiel: für Samplerate 200 muss eine 100 übergeben werden)
+                 ; ###			OUT: 'O' = OK or 'E' = Error
+                 ; ###	M = Set Mousetype	(nur wenn Mousetype-Selection über die DIP-Switches auf AUTOMATIK steht)
+                 ; ###			IN: 0 = Automatik, 1 = Microsoft-Maus, 2 = Logitech-Maus, 3 = Microsoft-Wheelmouse
+                 ; ###	G = Get Status		
+                 ; ###			OUT: 'O' = OK or 'E' = Error
+                 ; ###				Wenn 'O' dann weitere 9 Byte
+                 ; ###					6 Byte PS2-Status (je Byte für ein Nibble des PS2-Status, erst das HIGH-Nibble, dann das LOW-Nibble)
+                 ; ###					1 Byte aktueller emulierter Mousetype
+                 ; ###					1 Byte per Hardware-Switches gesetzter Maustyp
+                 ; ###					1 Byte für die Baudrate (0 = 1200 Baud, 1 = 19200 Baud)
+                 ; ###			  or 'E' = Error
+                 ; ###		Byte 1 von PS2-Status: 
+                 ; ###			Bit 0 = Rechte Maus-Taste gedrückt
+                 ; ###			Bit 1 = Mittlere Maus-Taste gedrückt
+                 ; ###			Bit 2 = Linke Maus-Taste gedrückt
+                 ; ###			Bit 3 = immer Null
+                 ; ###			Bit 4 = 0 = Scaling 1 zu 1,  1 = Scaling 2 zu 1
+                 ; ###			Bit 5 = 0 = Datareporting Disable, 1 = Datareporting Enable
+                 ; ###			Bit 6 = 0 = Streammode, 1 = Remotemode
+                 ; ###			Bit 7 =	immer Null
+                 ; ###		Byte 2 von PS2-Status: Resolution  0 = 1 count/mm, 1 = 2 count/mm, 2 = 4 count/mm, 3 = 8 count/mm
+                 ; ###		Byte 3 von PS2-Status: Samplerate (10, 20, 40, 60, 80, 100, 200 ...)
+                 ; ################################################################################################
+                 SettingsMode:
+00005c ef9f      	ldi SettingMode, 0xFF				
+00005d 2700      	eor ax, ax
+00005e 2e30      	mov CheckRTSWhileWait, ax			; Fallende Flanken am RTS-Pin ignorieren
+00005f d1a9      	rcall PS2_DisableDataReporting		; Datareporting abschalten
+                 SettingsMode_MainLoop:
+000060 d211      	rcall UART_ReadByte					; auf das Befehlsbyte warten
+000061 3501      	cpi ax, 'Q'							; Q = Quit Settingsmode
+000062 f0b1      	breq SettingsMode_Quit
+000063 3502      	cpi ax, 'R'							; R = Set Resolution
+000064 f409      	brne S1
+000065 c02c      	rjmp SM_SetResolution
+000066 3403      S1: cpi ax, 'C'							; C = Set Scalling
+000067 f409      	brne S2
+000068 c032      	rjmp SM_SetScaling
+000069 3503      S2: cpi ax, 'S'							; S = Set Samplerate
+00006a f409      	brne S3
+00006b c03d      	rjmp SM_SetSampleRate
+00006c 3407      S3: cpi ax, 'G'							; G = Get PS2-Status
+00006d f411      	brne S4
+00006e c044      	rjmp SM_GetInfo
+00006f c039      	rjmp SM_SetSampleRate
+000070 340d      S4: cpi ax, 'M'							; M = Maustype
+000071 f409      	brne S5
+000072 c019      	rjmp SM_SetMouseType				; Baudrate
+000073 3402      S5: cpi ax, 'B'
+000074 f409      	brne S6
+000075 c008      	rjmp SM_SetBaudrate
+                 S6:
+                 	.if LCD_Enabled==1
+                 	.endif	
+000076 e405      	ldi ax, 'E'
+000077 d1f6      	rcall UART_WriteByte
+000078 cfe7      	rjmp SettingsMode_MainLoop
+                 SettingsMode_Quit:
+000079 d18c      	rcall PS2_EnableDataReporting		; Datareporting wieder aktivieren
+00007a ef0f      	ldi ax, 0xFF
+00007b 2e30      	mov CheckRTSWhileWait, ax
+00007c e090      	ldi SettingMode, 0x00
+00007d 9508      	ret
+                 
+                 SM_SetBaudrate:
+00007e d1f3      	rcall UART_ReadByte					; gewünschte Baudrate über Serial einlesen
+00007f 2e60      	mov Baudrate, ax					; neue Baudrate sichern
+000080 e0e4      	ldi ZL, EEProm_Baudrate				; Den Wert im EEProm sichern
+000081 d055      	rcall EE_SaveSetting
+000082 e40f      	ldi ax, 'O'							; ein OK zurück geben
+000083 d1ea      	rcall UART_WriteByte
+                 SMSB1:
+000084 9b5d      	sbis UCSRA, UDRE					; wenn UDRE=1 (Sendebuffer is leer, bereit für neue Daten) dann Sprung
+000085 cffe      	rjmp SMSB1							; Warten, bis vorherige Übertragung abgeschlossen ist
+000086 e803      	ldi ax, Wait_10ms					; nochmal etwas warten
+000087 d089      	rcall WaitMS
+000088 e803      	ldi ax, Wait_10ms					; nochmal etwas warten
+000089 d087      	rcall WaitMS
+00008a d1d3      	rcall UART_INIT						; UART neu initialisieren
+00008b cfed      	rjmp SettingsMode_Quit
+                 SM_SetMouseType:
+00008c d1e5      	rcall UART_ReadByte					; gewünschten Maustype über Serial einlesen
+00008d e0e3      	ldi ZL, EEProm_MouseType			; Den Wert im EEProm sichern
+00008e d048      	rcall EE_SaveSetting
+00008f 9488      	clc
+000090 d03e      	rcall SM_SendStatus					; Status zurückgeben
+000091 cfce      	rjmp SettingsMode_MainLoop
+                 
+                 SM_SetResolution:
+000092 d1df      	rcall UART_ReadByte					; gewünschte Auflösung über Serial einlesen
+000093 930f      	push ax								; Auflösung sichern
+000094 d177      	rcall PS2_SetResolution				; Auflösung setzen
+000095 910f      	pop ax								; Auflösung wieder herstellen
+000096 f010      	brcs Q3								; wenn Setzen nicht erfolgreich war, dann gleich den Status senden
+000097 e0e1      	ldi ZL, EEProm_Resolution			; Den Wert im EEProm sichern
+000098 d03e      	rcall EE_SaveSetting
+000099 d035      Q3:	rcall SM_SendStatus					; Status zurückgeben
+00009a cfc5      	rjmp SettingsMode_MainLoop
+                 
+                 SM_SetScaling:
+00009b d1d6      	rcall UART_ReadByte					; gewünschte Scallierung über Serial einlesen
+00009c 930f      	push ax								; Scaling sichern
+00009d 3001      	cpi ax, 0x01						; Wenn 1 (also Scallung 2zu1) dann Sprung
+00009e f011      	breq SSC1
+00009f ee06      	ldi ax, PS2_Command_SetScaling11	
+0000a0 c001      	rjmp SSC2
+                 SSC1:
+0000a1 ee07      	ldi ax, PS2_Command_SetScaling21
+                 SSC2:
+0000a2 d13f      	rcall PS2_SendCommand				; Scaling Setzen
+0000a3 910f      	pop ax								; Scaling wieder herstellen
+0000a4 f010      	brcs Q2								; wenn Setzen nicht erfolgreich war, dann gleich den Status senden
+0000a5 e0e2      	ldi ZL, EEProm_Scaling				; Den Wert im EEProm sichern
+0000a6 d030      	rcall EE_SaveSetting
+0000a7 d027      Q2:	rcall SM_SendStatus
+0000a8 cfb7      	rjmp SettingsMode_MainLoop
+                 
+                 SM_SetSampleRate:
+0000a9 d1c8      	rcall UART_ReadByte					; gewünschte Samplerate über Serial einlesen
+0000aa 0f00      	lsl ax								; ax*2
+0000ab 930f      	push ax								; Samplerate sichern
+0000ac d17b      	rcall PS2_SetSampleRate				; Samplerate setzen
+0000ad 910f      	pop ax								; Samplerate wiederherstellen
+0000ae f010      	brcs Q1								; wenn Setzen nicht erfolgreich war, dann gleich den Status senden
+0000af e0e0      	ldi ZL, EEProm_Samplerate			; Den Wert im EEProm sichern
+0000b0 d026      	rcall EE_SaveSetting
+0000b1 d01d      Q1:	rcall SM_SendStatus
+0000b2 cfad      	rjmp SettingsMode_MainLoop
+                 
+                 SM_GetInfo:
+0000b3 d167      	rcall PS2_GetStatus
+0000b4 f078      	brcs GI1
+0000b5 e40f      	ldi ax, 'O'
+0000b6 d1b7      	rcall UART_WriteByte
+0000b7 2d0d      	mov ax, MouseX
+0000b8 d00e      	rcall SendByte2UART
+0000b9 2d0e      	mov ax, MouseY
+0000ba d00c      	rcall SendByte2UART
+0000bb 2d0f      	mov ax, MouseZ
+0000bc d00a      	rcall SendByte2UART
+0000bd 2f08      	mov ax, SER_Mousetype
+0000be d1af      	rcall UART_WriteByte
+0000bf 2f05      	mov ax, HardwareSelectedMouse
+0000c0 d1ad      	rcall UART_WriteByte
+0000c1 2d06      	mov ax, Baudrate
+0000c2 d1ab      	rcall UART_WriteByte
+0000c3 cf9c      	rjmp SettingsMode_MainLoop
+                 GI1:
+0000c4 e405      	ldi ax, 'E'
+0000c5 d1a8      	rcall UART_WriteByte
+0000c6 cf99      	rjmp SettingsMode_MainLoop
+                 
+                 ; sendet das High und das Low-Nibble von ax als zwei Bytes an den UART (das Serielle Protokoll nutzt nur 7 Bytes, daher übertragen wir die 8 Bytes als zwei 7-Bit pakete)
+                 SendByte2UART:
+0000c7 930f      	push ax
+0000c8 9502      	swap ax
+0000c9 700f      	andi ax, 0x0F
+0000ca d1a3      	rcall UART_WriteByte
+0000cb 910f      	pop ax
+0000cc 700f      	andi ax, 0x0F
+0000cd d1a0      	rcall UART_WriteByte
+0000ce 9508      	ret
+                 
+                 SM_SendStatus:
+0000cf 930f      		push ax
+0000d0 f410      		brcc SMSS1
+0000d1 e405      		ldi ax, 'E'
+0000d2 f008      		brcs SMSS2
+0000d3 e40f      SMSS1:	ldi ax, 'O'
+0000d4 d199      SMSS2:	rcall UART_WriteByte
+0000d5 910f      		pop ax
+0000d6 9508      		ret
+                 
+                 
+                 ; ################################################################################################
+                 ; ### Schreibt einen Einstellung in das EEPROM 
+                 ; ### IN:	ZL = Adresse
+                 ; ### OUT:	AX = Wert
+                 ; ################################################################################################
+                 EE_SaveSetting:
+0000d7 930f      	push ax
+0000d8 d016      	rcall EE_WriteByte					
+0000d9 96b0      	adiw ZH:ZL, EEProm_EnableDisable
+0000da e001      	ldi ax, 1
+0000db d013      	rcall EE_WriteByte					
+0000dc 910f      	pop ax
+0000dd 9508      	ret
+                 
+                 ; ################################################################################################
+                 ; ### Liest einen Einstellung aus dem EEPROM 
+                 ; ### IN:	ZL = Adresse
+                 ; ### OUT:	Carry = 1 wenn keine Wert gesetzt, ansonsten 0
+                 ; ###       AX = Wert, wenn Carry = 0
+                 ; ################################################################################################
+                 EE_ReadSetting:
+0000de 93ef      	push ZL
+0000df 96b0      	adiw ZH:ZL, EEProm_EnableDisable
+0000e0 d008      	rcall EE_ReadByte
+0000e1 91ef      	POP ZL
+0000e2 3001      	cpi ax, 1
+0000e3 f419      	brne ER2
+0000e4 d004      	rcall EE_ReadByte
+0000e5 9488      	clc
+0000e6 9508      ER1:ret
+0000e7 9408      ER2:sec
+0000e8 9508      	ret
+                 ; ################################################################################################
+                 ; ### Liest einen Wert aus dem EEPROM 
+                 ; ### IN:	ZL = Adresse
+                 ; ### OUT:	AX = Wert
+                 ; ################################################################################################
+                 EE_ReadByte:
+0000e9 99e1          sbic    EECR,EEWE			; prüfe ob der vorherige Schreibzugriff beendet ist
+0000ea cffe          rjmp    EE_ReadByte			; wenn nicht dann weiter warten
+0000eb bbee          out     EEARL, ZL    
+0000ec 9ae0          sbi     EECR, EERE			; Lesevorgang aktivieren
+0000ed b30d          in      ax, EEDR			; Wert nach AX lesen
+0000ee 9508      	ret
+                 
+                 ; ################################################################################################
+                 ; ### Speicher den Wert im EEPROM ab. 
+                 ; ### IN: AX = Wert
+                 ; ###	  ZL = Adresse
+                 ; ################################################################################################
+                 EE_WriteByte:
+0000ef 930f      	push ax						; Wert sichern
+0000f0 99e1      EB1:sbic    EECR, EEWE          ; prüfe ob der letzte Schreibvorgang beendet ist
+0000f1 cffe          rjmp    EB1			        ; wenn nicht dann weiter warten
+0000f2 bbee          out     EEARL, ZL           ; 
+0000f3 bb0d          out     EEDR, ax            ; zu schreibendes Byte setzen
+0000f4 b70f      	in		ax, sreg			; FLAGS sichern
+0000f5 94f8      	cli							; vorsichtshalber IRQ's sperren
+0000f6 9ae2          sbi     EECR,EEMWE          ; Schreiben vorbereiten
+0000f7 9ae1          sbi     EECR,EEWE           ; Und los !
+0000f8 bf0f      	out		sreg, ax			; FLAGS wiederherstellen und damit IRQ's wieder zulassen
+0000f9 910f      	pop ax						; Wert wiederherstellen
+0000fa 9508      	ret
+                 
+                 ; #################################
+                 ; ### Schaltet die 1. LED aus
+                 ; #################################
+                 LED1_OFF:
+0000fb 9ab9      	sbi LED_DDR, LED_1					; DDR auf Ausgang schalten
+0000fc 0000      	nop
+                 	.if LED_On_Ground==1
+                 	.else 
+0000fd 9ac1      		sbi LED_Port, LED_1					; Pin auf High -> LED ausschalten
+                 	.endif
+0000fe 9508      	ret	
+                 
+                 ; #################################
+                 ; ### Schaltet die 1. LED an
+                 ; #################################
+                 LED1_ON:
+0000ff 9ab9      	sbi LED_DDR, LED_1					; DDR auf Ausgang schalten
+000100 0000      	nop
+                 	.if LED_On_Ground==1
+                 	.else 
+000101 98c1      		cbi LED_Port, LED_1					; Pin auf Low -> LED anschalten
+                 	.endif
+000102 9508      	ret	
+                 
+                 ; #################################
+                 ; ### Schaltet die 2. LED an
+                 ; #################################
+                 LED2_ON:
+000103 9aba      	sbi LED_DDR, LED_2					; DDR auf Ausgang schalten
+000104 0000      	nop
+                 	.if LED_On_Ground==1
+                 	.else 
+000105 98c2      		cbi LED_Port, LED_2					; Pin auf Low -> LED anschalten
+                 	.endif
+000106 9508      	ret	
+                 
+                 ; ### Include-Dateien
+                 	.include "Allgemeines.asm"
+                 
+                  *  Copyright (C) 2016 Christian Machill
+                  *
+                  *  This program is free software; you can redistribute it and/or modify
+                  *  it under the terms of the GNU General Public License as published by
+                  *  the Free Software Foundation; either version 3 of the License, or
+                  *  (at your option) any later version.
+                  *  
+                  *  This program is distributed in the hope that it will be useful,
+                  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+                  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+                  *  GNU General Public License for more details.
+                  *
+                  *  You should have received a copy of the GNU General Public License
+                  *  along with this program; if not, write to the Free Software Foundation,
+                  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+                  *
+                  */
+                 
+                 /*
+                  * Allgemeines.asm
+                  *
+                  *  Created: 11.09.2016
+                  *   Author: Christian Machill
+                  */ 
+                 
+                 ;### Maustypen
+                 .equ MouseType_Automatik = 0
+                 .equ MouseType_Microsoft = 1
+                 .equ MouseType_Logitech = 2
+                 .equ MouseType_MicrosoftWheelMouse = 3
+                 ;### Register
+                 .def ax = r16
+                 .def bx = r17
+                 .def cx = r18
+                 .def dx = r19
+                 .def tx = r20
+                 
+                 ;.def DummyMB=r21
+                 ;.def DummyMX=r22
+                 ;.def DummyMY=r24
+                 ;.def DummyMZ=r2
+                 
+                 .def HardwareSelectedMouse=r21
+                 .def SetMouseTypeAllowed=r22
+                 .def PS2_MouseType = r23
+                 .def SER_MouseType = r24
+                 .def SettingMode = r25
+                 .def CheckRTSWhileWait = r3
+                 .def UART_RTS_OldState = r5
+                 ;.def PS2_Resolution = r6
+                 ;.def PS2_DataByte1 = r7
+                 ;.def PS2_DataByte2 = r8
+                 ;.def PS2_DataByte3 = r9
+                 ;.def OldMouseButtonState = r9
+                 
+                 .def Baudrate = r6
+                 .def OldMouseZ = r10
+                 .def MouseButtonState = r12
+                 .def MouseX = r13
+                 .def MouseY = r14
+                 .def MouseZ = r15
+                 
+                 .equ Wait_10us = ( FREQ * 10 / 10 ) / 1000000
+                 .equ Wait_20us = ( FREQ * 20 / 10 ) / 1000000
+                 .equ Wait_50us = ( FREQ * 50 / 10 ) / 1000000
+                 .equ Wait_100us = ( FREQ * 100 / 10 ) / 1000000
+                 .equ Wait_150us = ( FREQ * 150 / 10 ) / 1000000
+                 .equ Wait_200us = ( FREQ * 200 / 10 ) / 1000000
+                 .equ Wait_300us = ( FREQ * 300 / 10 ) / 1000000
+                 ;
+                 .equ Wait_1ms = ( FREQ * 1 / 607 ) / 1000
+                 .equ Wait_5ms = ( FREQ * 5 / 607 ) / 1000
+                 .equ Wait_10ms = ( FREQ * 10 / 607 ) / 1000
+                 ;.equ Wait_150ms = ( FREQ * 150 / 607 ) / 1000
+                 
+                 ; Wartet die in dx angegebenen us
+                 Wait:
+000107 953a          dec  dx
+000108 0000      	nop
+000109 0000      	nop
+00010a 0000      	nop
+00010b 0000      	nop
+00010c 0000      	nop
+00010d 0000      	nop
+00010e 0000      	nop
+00010f f7b9      	brne Wait
+000110 9508      	ret
+                 
+                 ; Wartet die in AX angegebenen ms
+                 WaitMS:
+000111 932f      	push cx
+                 WaitMS2:
+000112 ec29      	ldi  cx, 0xC9
+                 WaitMS1:
+000113 952a      	dec  cx
+000114 f7f1          brne WaitMS1
+000115 950a          dec  ax
+000116 f7d9          brne WaitMS2
+000117 912f      	pop cx
+000118 9508          ret
+                 	.include "ps2.asm"
+                 
+                  *  Copyright (C) 2016 Christian Machill
+                  *
+                  *  This program is free software; you can redistribute it and/or modify
+                  *  it under the terms of the GNU General Public License as published by
+                  *  the Free Software Foundation; either version 3 of the License, or
+                  *  (at your option) any later version.
+                  *  
+                  *  This program is distributed in the hope that it will be useful,
+                  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+                  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+                  *  GNU General Public License for more details.
+                  *
+                  *  You should have received a copy of the GNU General Public License
+                  *  along with this program; if not, write to the Free Software Foundation,
+                  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+                  *
+                  */
+                  
+                  /*
+                  * ps2.asm
+                  *
+                  *  Created: 11.09.2016
+                  *   Author: Christian Machill
+                  */ 
+                 
+                 .equ PS2_Command_Reset = 0xFF
+                 .equ PS2_Command_SetRemoteMode = 0xFF
+                 .equ PS2_Command_SetStreamMode = 0xEA
+                 .equ PS2_Command_SetSampleRate = 0xF3
+                 .equ PS2_Command_SetResolution = 0xE8
+                 .equ PS2_Command_GetDeviceID = 0xF2
+                 .equ PS2_Command_GetStatus = 0xE9
+                 .equ PS2_Command_ReadData = 0xEB
+                 .equ PS2_Command_SetScaling11 = 0xE6
+                 .equ PS2_Command_SetScaling21 = 0xE7
+                 .equ PS2_Command_EnableDataReporting = 0xF4 
+                 .equ PS2_Command_DisableDataReporting = 0xF5 
+                 
+                 .MACRO ShortWait
+                 .if ( FREQ > 1000000 )	
+                 	ldi dx, Wait_50us
+                 	rcall Wait
+                 .endif
+                 .ENDMACRO
+                 
+                 .MACRO CheckRTS								; Das gehört zwar eigentlich in das Modul "UART.ASM", aber wenn ich es als Macro aufrufen will, muss es hier stehen. Da es sehr Zeitkritisch ist, muss ich es aber als Macro aufrufen.
+                 	cbi UART_DDR, UART_RTS					; RTS-Pin auf Input setzen
+                 	nop
+                 	nop
+                 	in ax, UART_PIN
+                 	andi ax, (1<<UART_RTS)
+                 	brne C1
+                 	tst UART_RTS_OldState					; War RTS vorher auch schon Low ? 
+                 	breq C1									; Ja, dann sprung (nix weiter machen)
+                 	rcall UART_SendMouseIDString
+                 C1:
+                 	mov UART_RTS_OldState, ax
+                 .ENDMACRO
+                 
+                 .MACRO CheckUARTIncommingData
+                 	clc
+                 	sbic UCSRA, RXC
+                 	sec
+                 .ENDMACRO
+                 
+                 .MACRO PS2_SetDataPinLow
+                 	cbi PS2_Port, PS2_Data
+                 	sbi PS2_DDR, PS2_Data
+                 .ENDMACRO
+                 
+                 .MACRO PS2_SetDataPinHigh
+                 	sbi PS2_Port, PS2_Data
+                 	cbi PS2_DDR, PS2_Data
+                 .ENDMACRO
+                 
+                 .MACRO PS2_SetClockPinLow
+                 	cbi PS2_Port, PS2_Clock
+                 	sbi PS2_DDR, PS2_Clock
+                 .ENDMACRO
+                 
+                 .MACRO PS2_SetClockPinHigh
+                 	sbi PS2_Port, PS2_Clock
+                 	cbi PS2_DDR, PS2_Clock
+                 .ENDMACRO
+                 
+                 .MACRO PS2_WaitWhileClockLow
+                 	rcall PS2_Wait_WhileClockLow
+                 .ENDMACRO
+                 
+                 PS2_Wait_WhileClockLow:
+000119 fe31      	sbrs CheckRTSWhileWait, 1
+00011a c011      	rjmp L1
+00011b 988b
+00011c 0000
+00011d 0000
+00011e b300
+00011f 7008
+000120 f419
+000121 2055
+000122 f009
+000123 d162
+000124 2e50      L0:	CheckRTS
+000125 9488
+000126 995f
+000127 9408      	CheckUARTIncommingData
+000128 f028      	brcS L2
+000129 d01b      	rcall PS2_GetClock
+00012a f381      	breq L0
+00012b c002      	rjmp L2
+00012c d018      L1: rcall PS2_GetClock
+00012d f3f1      	breq L1
+00012e 9508      L2:	ret
+                 
+                 .MACRO PS2_WaitWhileClockHigh
+                 	rcall PS2_Wait_WhileClockHigh
+                 .ENDMACRO
+                 
+                 PS2_Wait_WhileClockHigh:
+00012f fe31      	sbrs CheckRTSWhileWait, 1
+000130 c011      	rjmp L7
+000131 988b
+000132 0000
+000133 0000
+000134 b300
+000135 7008
+000136 f419
+000137 2055
+000138 f009
+000139 d14c
+00013a 2e50      L6:	CheckRTS
+00013b 9488
+00013c 995f
+00013d 9408      	CheckUARTIncommingData
+00013e f028      	brcS L8
+00013f d005      	rcall PS2_GetClock
+000140 f781      	brne L6
+000141 c002      	rjmp L8
+000142 d002      L7: rcall PS2_GetClock
+000143 f7f1      	brne L7
+000144 9508      L8: ret
+                 
+                 ; #######################################################
+                 ; ### ermittelt den Status der Clock-Leitung 
+                 ; ### OUT: ax = 0  Clock ist Low
+                 ; ###      ax <> 0  Clock ist High
+                 ; ###  Wichtig, nicht auf 1 prüfen, sondern auf <> 0
+                 ; #######################################################
+                 PS2_GetClock:
+000145 988e      	cbi PS2_DDR, PS2_Clock
+000146 0000      	nop
+000147 0000      	nop
+                 .if ( FREQ > 8000000 )	
+                 .endif
+000148 b300      	in ax, PS2_PIN						
+000149 7400      	andi ax, 1<<PS2_Clock				
+00014a 9508      	ret									
+                 
+                 ; #######################################################
+                 ; ### ermittelt den Status der DATA-Leitung 
+                 ; ### OUT: ax = 0  Data ist Low
+                 ; ###      ax <> 0  Data ist High
+                 ; ###  Wichtig, nicht auf 1 prüfen, sondern auf <> 0
+                 ; #######################################################
+                 PS2_GetData:
+00014b 988d      	cbi PS2_DDR, PS2_Data
+00014c 0000      	nop
+00014d 0000      	nop
+                 .if ( FREQ > 8000000 )	
+                 .endif
+00014e b300      	in ax, PS2_PIN
+00014f 7200      	andi ax, 1<<PS2_Data
+000150 9508      	ret
+                 
+                 ; ##################################################
+                 ; ### Sendet das Byte in AX an die Maus
+                 ; ##################################################
+                 PS2_WriteByte:
+000151 931f      	push bx							; Register sichern
+000152 932f      	push cx
+000153 933f      	push dx
+000154 934f      	push tx
+000155 e041      	ldi tx, 1						; TX dient als Bitmaske
+000156 e028      	ldi cx, 8						; CX ist unser Schleifenzähler
+000157 2f10      	mov bx, ax						; zu schreibendes Byte sichern
+000158 d079      	rcall PS2_GetParitaet			; Parität berechnen
+000159 2f40      	mov tx, ax						; Parität in Register sichern
+00015a 9a95
+00015b 988d      	PS2_SetDataPinHigh				
+00015c 9a96
+00015d 988e      	PS2_SetClockPinHigh
+00015e e530      	ldi dx, Wait_100us
+00015f dfa7      	rcall Wait
+000160 9896
+000161 9a8e      	PS2_SetClockPinLow
+000162 e530      	ldi dx, Wait_100us
+000163 dfa3      	rcall Wait
+000164 9895
+000165 9a8d      	PS2_SetDataPinLow				; Starbit = 0
+000166 e038      	ldi dx, Wait_10us				; Kurz warten
+000167 df9f      	rcall Wait
+000168 9a96
+000169 988e      	PS2_SetClockPinHigh				; Clockleitung frei geben
+                 PW3Bit_1s:
+00016a dfc4      	PS2_WaitWhileClockHigh			; Warten, solange Clock High ist
+00016b 2f01      	mov ax, bx						; gesichertes zu sendendes Byte nach ax
+00016c 7001      	andi ax, 0x01					; Maskieren
+00016d f419      	brne PW3Bit_1a					; wenn 1, dann Sprung
+00016e 9895
+00016f 9a8d      	PS2_SetDataPinLow				; DATA auf LOW setzen
+000170 c002      	rjmp PW3Bit_1b
+                 PW3Bit_1a:
+000171 9a95
+000172 988d      	PS2_SetDataPinHigh				; DATA auf HIGH setzen
+                 PW3Bit_1b:							
+000173 dfa5      	PS2_WaitWhileClockLow			; Warten, solange Clock Low ist
+000174 9516      	lsr bx							; Bits im Datebyte nach rechts schieben
+000175 952a      	dec cx							; Schleifenzähler verringern
+000176 f799      	brne PW3Bit_1s					; Sprung, wenn noch nicht fertig
+000177 dfb7      	PS2_WaitWhileClockHigh			; Warten, solange Clock High ist
+000178 2f04      	mov ax, tx						; Paritätsbit nach ax
+000179 7001      	andi ax,1						; wir brauchen immer nur 1 Bit
+00017a f419      	brne PW3Bit_2a					; wenn 1, dann Sprung
+00017b 9895
+00017c 9a8d      	PS2_SetDataPinLow				; DATA auf LOW setzen
+00017d c002      	rjmp PW3Bit_2b
+                 PW3Bit_2a:
+00017e 9a95
+00017f 988d      	PS2_SetDataPinHigh				; DATA auf HIGH setzen
+                 PW3Bit_2b:							
+000180 df98      	PS2_WaitWhileClockLow			; Warten, solange Clock Low ist
+000181 dfad      	PS2_WaitWhileClockHigh			; Warten, solange High Low ist
+000182 9a95
+000183 988d      	PS2_SetDataPinHigh				; Stopbit = 1
+000184 e238      	ldi dx, Wait_50us				; Kurz warten
+000185 df81      	rcall Wait
+000186 dfa8      	PS2_WaitWhileClockHigh			
+000187 e010      	ldi bx, 0
+000188 6610      	ori bx, (1<<PS2_Data) | (1<<PS2_Clock)
+000189 988d      	cbi PS2_DDR, PS2_Data
+00018a 988e      	cbi PS2_DDR, PS2_Clock
+                 PW3Byte22:
+00018b b300      	in ax, PS2_PIN
+00018c 2301      	and ax, bx
+00018d 1701      	cp ax, bx
+00018e f7e1      	brne PW3Byte22					; Warten, bis Clock und Data = High
+00018f 9896
+000190 9a8e      	PS2_SetClockPinLow				; Clock wieder auf Low setzen, damit die Maus keine weiteren Daten sendet
+000191 914f      	pop tx							; Register wiederherstellen
+000192 913f      	pop dx
+000193 912f      	pop cx
+000194 911f      	pop bx
+000195 9508      	ret
+                 
+                 ; ##########################################################
+                 ; ### Liest ein Byte von der Maus nach AX
+                 ; ###   OUT:  Carryflag 
+                 ; ###   wenn gesetzt, dann Fehler beim Startbit, Stopbit 
+                 ; ###   oder Paritätsbit falsch
+                 ; ##########################################################
+                 PS2_ReadByte:
+000196 931f      	push bx							; Register sichern
+000197 932f      	push cx
+000198 933f      	push dx
+000199 934f      	push tx
+                 
+00019a e010      	ldi bx, 0						; BX wird das gelesene Byte aufnehmen
+00019b e041      	ldi tx, 1						; TX dient als Bitmaske
+00019c e028      	ldi cx, 8						; CX ist unser Schleifenzähler
+                 
+00019d 9a96
+00019e 988e      	PS2_SetClockPinHigh				; Clock freigeben
+00019f 9a95
+0001a0 988d      	PS2_SetDataPinHigh				; Data Freigeben
+0001a1 e238      	ldi dx, Wait_50us				; Kurz warten
+0001a2 df64      	rcall Wait
+0001a3 df8b      	PS2_WaitWhileClockHigh			; warten, bis die Maus Clock auf Low setzt
+0001a4 f408      	brcc PR2Byte0
+0001a5 c025      	rjmp PRByteEnde
+                 PR2Byte0:
+0001a6 2f30      	mov dx, ax						; Startbit erstmal nach dx sichern
+0001a7 df71      	PS2_WaitWhileClockLow
+0001a8 2333      	tst dx							; Startbit auf 0 prüfen (muss immer 0 sein)
+0001a9 f011      	breq PR2Byte1					; wenn 0, dann Sprung
+0001aa 9408      	sec								; Carryflag setzen
+0001ab c01f      	rjmp PRByteEnde					; und Procedure beenden
+                 	; ### Datenbits
+                 PR2Byte1:	
+0001ac df82      	PS2_WaitWhileClockHigh			; Warten solange Clock High ist
+0001ad df9d      	rcall PS2_GetData				; Datenbit einlesen
+0001ae 2300      	tst ax							; prüfen, ob das BIT=HIGH ist
+0001af f009      	breq PR2Byte2					; wenn null. dann Sprung
+0001b0 2b14      	or bx, tx						; Bit in BX setzen
+                 PR2Byte2:	
+0001b1 0f44      	lsl tx							; unsere Bitmaske um eine Stelle nach links schieben
+0001b2 df66      	PS2_WaitWhileClockLow			; und warten, bis Clock wieder HIGH ist
+0001b3 952a      	dec cx							; Schleifenzähler verringern
+0001b4 f7b9      	brne PR2Byte1					; wenn noch nocht alle BITS gelesen, dann weitere Datenbits einlesen
+0001b5 df79      	PS2_WaitWhileClockHigh			; eat Parity
+0001b6 df94      	rcall PS2_GetData				; Datenbit einlesen
+0001b7 e030      	ldi dx, 0						; DX initialisieren, in DX legen wir erstmal das Paritätsbit ab, und werten es später aus
+0001b8 fd05      	sbrc ax, PS2_Data				; wenn Paritätsbit nicht gesetzt, dann nächsten Befehl überspringen
+0001b9 9533      	inc dx							; DX auf 1 setzen (DX enthält jetzt das Paritätsbit an der Position 0)
+0001ba df5e      	PS2_WaitWhileClockLow			; und warten, bis Clock wieder HIGH ist
+0001bb df73      	PS2_WaitWhileClockHigh			; ; und warten, bis Clock wieder Low ist
+0001bc df8e      	rcall PS2_GetData				; Stopbit einlesen
+0001bd 2f40      	mov tx, ax						; und nach tx sichern (tx diente uns bisher als Bitmaske, da tx zu diesem Zeitpunkt nicht mehr benötigt wird, können wir es jetzt anderweitig benutzen)
+0001be df5a      	PS2_WaitWhileClockLow
+0001bf 2344      	tst tx							; jetzt prüfen wir das Stopbit
+0001c0 f411      	brne PRByte3					; wenn Stopbit=1, dann Sprung (Stopbit muss immer 1 sein)
+0001c1 9408      	sec								; Carryflag setzen
+0001c2 c008      	rjmp PRByteEnde					; und Procedure beenden
+                 PRByte3:	
+0001c3 2f01      	mov ax, bx						; Datenbyte nach ax kopieren
+0001c4 d00d      	rcall PS2_GetParitaet			; Parität berechnen
+0001c5 1703      	cp ax, dx						; und das berechnete Paritätsbit mit dem empfangenen Paritätsbit vergleichen
+0001c6 f011      	breq PRByte4					; wenn es gleich ist, dann Sprung
+0001c7 9408      	sec								; Carryflag setzen
+0001c8 c002      	rjmp PRByteEnde					; und Procedure beenden
+                 PRByte4:
+0001c9 2f01      	mov ax, bx
+0001ca 9488      	clc
+                 PRByteEnde:
+0001cb 9896
+0001cc 9a8e      	PS2_SetClockPinLow				; Clock wieder auf LOW -> Damit sendet die Maus nicht mehr, bis wir Clock wieder freigeben
+0001cd 914f      	pop tx							; Register wiederherstellen
+0001ce 913f      	pop dx
+0001cf 912f      	pop cx
+0001d0 911f      	pop bx
+0001d1 9508      	ret
+                 
+                 ; ##########################################################
+                 ; ### Ermittelt das Paritätsbit eines Bytes
+                 ; ###   IN: AX = Datenbyte
+                 ; ###  OUT: AX = 1 Bit = Paritätsbit 
+                 ; ##########################################################
+                 PS2_GetParitaet:
+0001d2 931f      	push bx
+0001d3 2f10      	mov bx, ax					
+0001d4 9502      	swap ax						
+0001d5 2701      	eor ax, bx					
+0001d6 2f10      	mov bx, ax					
+0001d7 9506      	lsr ax						
+0001d8 9506      	lsr ax						
+0001d9 2701      	eor ax, bx					
+0001da 2f10      	mov bx, ax					
+0001db 9506      	lsr ax						
+0001dc 2701      	eor ax, bx					
+0001dd 7001      	andi ax, 1					
+0001de e011      	ldi bx, 1
+0001df 2701      	eor ax, bx
+0001e0 911f      	pop bx
+0001e1 9508      	ret
+                 
+                 PS2_SendCommand:
+0001e2 df6e      	rcall PS2_WriteByte					; Befehl senden
+0001e3 e238
+0001e4 df22      	ShortWait
+0001e5 dfb0      	rcall PS2_ReadByte					; Antwort einlesen
+0001e6 f020      	brcs SC1							; wenn Fehler dann beenden
+0001e7 3f0a      	cpi ax, 0xFA						; wenn 0xFA dann weiter
+0001e8 f411      	brne SC1							; sonst mit Fehler beenden
+0001e9 9488      	clc
+0001ea f408      	brcc SC2
+0001eb 9408      SC1:sec
+0001ec 9508      SC2:ret
+                 
+                 ; ##########################################################
+                 ; ### Initialisiert die PS2-Maus
+                 ; ##########################################################
+                 PS2_Init:
+                 	; ### Send Reset
+0001ed ef0f      	ldi ax, PS2_Command_Reset			
+0001ee df62      	rcall PS2_WriteByte					; Reset-Befehl senden
+0001ef dfa6      	rcall PS2_ReadByte					; ACK lesen - ich prüfe ACK nicht auf den richtigen Wert, weil bei meinen Test's ein KVM-Switsch nach dem Einschalten hier 0x00 gesendet hat, alle Bytes danach waren so wie erwartet
+0001f0 f098      	brcs PS2_Init_Error
+0001f1 dfa4      	rcall PS2_ReadByte					; BAT-Ergebniss lesen 
+0001f2 f088      	brcs PS2_Init_Error					; wenn Fehler dann beenden
+0001f3 3a0a      	cpi ax, 0xAA						;
+0001f4 f479      	brne PS2_Init_Error
+0001f5 dfa0      	rcall PS2_ReadByte					; DeviceID lesen
+0001f6 f068      	brcs PS2_Init_Error					; wenn Fehler dann beenden
+                 	; ### Set Stream Mode
+0001f7 ee0a      	ldi ax, PS2_Command_SetStreamMode; PS2_Command_SetRemoteMode
+0001f8 df58      	rcall PS2_WriteByte					; auf den REMOTE-MNode umstellen
+0001f9 df9c      	rcall PS2_ReadByte					; Antwort einlesen
+0001fa f048      	brcs PS2_Init_Error					; wenn Fehler dann beenden
+0001fb 3f0a      	cpi ax, 0xFA						; Antwort OK?
+0001fc f439      	brne PS2_Init_Error					; wenn nein, dann mit Fehler beenden
+                 	; ### Variablen Initialisieren
+0001fd 2700      	eor ax, ax
+0001fe 2ec0      	mov MouseButtonState, ax			; \
+0001ff 2ed0      	mov MouseX, ax						;  \ 
+000200 2ee0      	mov MouseY, ax						;   | Mausvariablen initialisieren
+000201 2ef0      	mov MouseZ, ax						;  /
+                 ;	mov OldMouseButtonState, ax			; /
+000202 9488      	clc
+000203 9508      	ret
+                 PS2_Init_Error:
+000204 9408      	sec
+000205 9508      	ret
+                 
+                 ; ##########################################################
+                 ; ### Aktiviert das Senden der Datenpakete durch die Maus
+                 ; ##########################################################
+                 PS2_EnableDataReporting:
+000206 ef04      	ldi ax, PS2_Command_EnableDataReporting
+000207 dfda      	rcall PS2_SendCommand
+000208 9508      	ret
+                 
+                 ; ##########################################################
+                 ; ### Deaktiviert das Senden der Datenpakete durch die Maus
+                 ; ##########################################################
+                 PS2_DisableDataReporting:
+000209 ef05      	ldi ax, PS2_Command_DisableDataReporting
+00020a dfd7      	rcall PS2_SendCommand
+00020b 9508      	ret
+                 
+                 ; ##########################################################
+                 ; ### Setzt die in ax übergebene Auflösung
+                 ; ##########################################################
+                 PS2_SetResolution:
+00020c 931f      	push bx
+00020d 2f10      	mov bx, ax							; Resolution sichern
+00020e ee08      	ldi ax, PS2_Command_SetResolution
+00020f dfd2      	rcall PS2_SendCommand
+000210 f010      	brcs PS2_SetResolution_Error		; wenn Fehler dann beenden
+000211 2f01      	mov ax, bx							; Resolution wieder herstellen
+000212 dfcf      	rcall PS2_SendCommand
+                 PS2_SetResolution_Error:
+000213 911f      	pop bx
+000214 9508      	ret
+                 	
+                 ; ##########################################################
+                 ; ### Setzt Mausscallierung auf 1 zu 1 Modus
+                 ; ##########################################################
+                 PS2_Set_SetScaling11:
+000215 ee06      	ldi ax, PS2_Command_SetScaling11		
+                 	.if LCD_Enabled==1
+                 	.endif
+000216 dfcb      	rcall PS2_SendCommand
+000217 9508      	ret
+                 
+                 ; ##########################################################
+                 ; ### Setzt Mausscallierung auf 2 zu 1 Modus
+                 ; ##########################################################
+                 PS2_Set_SetScaling21:
+000218 ee07      	ldi ax, PS2_Command_SetScaling21		
+                 	.if LCD_Enabled==1
+                 	.endif
+000219 dfc8      	rcall PS2_SendCommand
+00021a 9508      	ret
+                 
+                 ; ##############################################################
+                 ; ### Ermittelt den Status der Maus, und legt den Status
+                 ; ### in den Registern 'PS2_DataByte1' bis 'PS2_DataByte3' ab
+                 ; ##############################################################
+                 PS2_GetStatus:
+00021b ee09      	ldi ax, PS2_Command_GetStatus		
+00021c dfc5      	rcall PS2_SendCommand
+00021d f048      	brcs PS2_GetStatus_Error			; wenn Fehler dann beenden
+00021e df77      	rcall PS2_ReadByte					; Datenbyte 1 einlesen
+00021f f038      	brcs PS2_GetStatus_Error			; wenn Fehler dann beenden
+000220 2ed0      	mov MouseX, ax						; Datenbyte in MouseX ablegen
+000221 df74      	rcall PS2_ReadByte					; Datenbyte 2 einlesen
+000222 f020      	brcs PS2_GetStatus_Error			; wenn Fehler dann beenden
+000223 2ee0      	mov MouseY, ax						; Datenbyte in MouseY ablegen
+000224 df71      	rcall PS2_ReadByte					; Datenbyte 3 einlesen
+000225 f008      	brcs PS2_GetStatus_Error			; wenn Fehler dann beenden
+000226 2ef0      	mov MouseZ, ax						; Datenbyte in MouseZ ablegen
+                 PS2_GetStatus_Error:
+000227 9508      	ret
+                 
+                 ; ##########################################################
+                 ; ### Setzt die in ax übergebene Samplerate
+                 ; ##########################################################
+                 PS2_SetSampleRate:
+000228 931f      	push bx
+000229 932f      	push cx
+00022a 2f10      	mov bx, ax							; Samplerate sichern
+00022b ef03      	ldi ax, PS2_Command_SetSampleRate
+00022c dfb5      	rcall PS2_SendCommand
+00022d f010      	brcs PS2_SetSampleRate_Error		; wenn Fehler dann beenden
+00022e 2f01      	mov ax, bx							; Samplerate wieder herstellen
+00022f dfb2      	rcall PS2_SendCommand
+                 PS2_SetSampleRate_Error:
+000230 912f      	pop cx
+000231 911f      	pop bx
+000232 9508      	ret
+                 
+                 ; ##########################################################
+                 ; ### überprüft, ob die PS2-Maus ein Scrollrad hat und
+                 ; ### liefert im Erfolgsfall die DeviceID in ax zurück
+                 ; ##########################################################
+                 PS2_CheckWheelMouse:
+000233 932f      	push cx
+000234 e023      	ldi cx, 3							; Schleifenzähler laden
+000235 ebe8      	ldi ZL, LOW(SampleRateArray1*2)		; Adresse mit dem Array der Sampleraten in den Z-Pointer
+000236 e0f4      	ldi ZH, HIGH(SampleRateArray1*2)
+                 PCWM1:
+000237 9105      	lpm ax, Z+							; Sampleraten aus Array nach ax
+000238 dfef      	rcall PS2_SetSampleRate				; Samplerate setzen
+000239 f080      	brcs PS2_CheckWheelMouse_Error		; wenn Fehler dann beenden
+00023a 952a      	dec cx								; Schleifenzähler verringern
+00023b f7d9      	brne PCWM1							; wenn noch nicht fertig, dann weiter
+00023c ef02      	ldi ax, PS2_Command_GetDeviceID		; so, jetzt ermitteln wir die DeviceID
+00023d dfa4      	rcall PS2_SendCommand
+00023e f058      	brcs PS2_CheckWheelMouse_Error		; wenn Fehler dann beenden
+00023f e238
+000240 dec6      	ShortWait
+000241 df54      	rcall PS2_ReadByte					; DeviceID lesen
+000242 f038      	brcs PS2_CheckWheelMouse_Error		; wenn Fehler dann beenden
+000243 930f      	push ax								; DeviceID sichern
+000244 e604      	ldi ax, 100							; zum Schluss setzten wir die Samplerate wieder auf den Standartwert 100
+000245 dfe2      	rcall PS2_SetSampleRate				; Samplerate 100 setzen
+000246 910f      	pop ax								; DeviceID wiederherstellen
+000247 912f      	pop cx
+000248 9488      	clc
+000249 9508      	ret
+                 PS2_CheckWheelMouse_Error:
+00024a 912f      	pop cx
+00024b 9408      	sec
+00024c 9508      	ret
+                 
+                 
+                 ; ##########################################################
+                 ; ### Berechnet aus den Datenbytes die Mausdaten
+                 ; ##########################################################
+                 PS2_GetMouseDatenpaket:
+00024d df48      	rcall PS2_ReadByte
+00024e f060      	brcs PGMZ2
+                 	;andi ax, 0x07
+00024f 2ec0      	mov MouseButtonState, ax
+000250 df45      	rcall PS2_ReadByte
+000251 2ed0      	mov MouseX, ax
+000252 df43      	rcall PS2_ReadByte
+000253 9501      	neg ax
+000254 2ee0      	mov MouseY, ax
+000255 24ff      	eor MouseZ, MouseZ			; MouseZ auf 0 setzen
+000256 3073      	cpi PS2_MouseType, MouseType_MicrosoftWheelMouse  ; Ist es eine Wheelmaus? wenn ja, wird ein weiteres Datenbyte gesendet, welches wir einlesen müssen
+000257 f411      	brne PGMZ1									  ; wenn nein, dann Sprung
+000258 df3d      	rcall PS2_ReadByte
+000259 2ef0      	mov MouseZ, ax
+                 PGMZ1:
+00025a 9488      	clc
+                 PGMZ2:
+00025b 9508      	ret
+                 
+                 SampleRateArray1:
+00025c 64c8
+00025d 0050      	.db 200, 100, 80, 0
+                 	.include "UART.asm"
+                 
+                  *  Copyright (C) 2016 Christian Machill
+                  *
+                  *  This program is free software; you can redistribute it and/or modify
+                  *  it under the terms of the GNU General Public License as published by
+                  *  the Free Software Foundation; either version 3 of the License, or
+                  *  (at your option) any later version.
+                  *  
+                  *  This program is distributed in the hope that it will be useful,
+                  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+                  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+                  *  GNU General Public License for more details.
+                  *
+                  *  You should have received a copy of the GNU General Public License
+                  *  along with this program; if not, write to the Free Software Foundation,
+                  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+                  *
+                  */
+                  
+                  /*
+                  * UART.asm
+                  *
+                  *  Created: 11.09.2016
+                  *   Author: Christian Machill
+                  */ 
+                 .equ BAUD  = 1200                               ; Baudrate
+                 ; Berechnungen für die Baudrate (gefunden auf http://www.mikrocontroller.net/articles/AVR-Tutorial:_UART)
+                 .equ UBRR_VAL   = ((FREQ+BAUD*8)/(BAUD*16)-1)	; clever runden
+                 .equ BAUD_REAL  = (FREQ/(16*(UBRR_VAL+1)))      ; Reale Baudrate
+                 .equ BAUD_ERROR = ((BAUD_REAL*1000)/BAUD-1000)  ; Fehler in Promille
+                  
+                 .if ((BAUD_ERROR>10) || (BAUD_ERROR<-10))       ; max. +/-10 Promille Fehler
+                 .endif
+                 
+                 .equ BAUD2  = 19200
+                 ; Berechnungen für die Baudrate (gefunden auf http://www.mikrocontroller.net/articles/AVR-Tutorial:_UART)
+                 .equ UBRR_VAL2   = ((FREQ+BAUD2*8)/(BAUD2*16)-1)	; clever runden
+                 .equ BAUD_REAL2  = (FREQ/(16*(UBRR_VAL2+1)))      ; Reale Baudrate
+                 .equ BAUD_ERROR2 = ((BAUD_REAL2*1000)/BAUD2-1000)  ; Fehler in Promille
+                  
+                 .if ((BAUD_ERROR2>10) || (BAUD_ERROR2<-10))       ; max. +/-10 Promille Fehler
+                 .endif
+                 
+                 ; ######################################################################
+                 ; ### Initialisiert die Serielle Schnittstelle 
+                 ; ######################################################################
+                 UART_Init:
+                     ; Baudrate setzen
+00025e fc60      	sbrc Baudrate, 0
+00025f c005      	rjmp UART_Init2
+000260 e001      	ldi ax, HIGH(UBRR_VAL)
+000261 b902          out UBRRH, ax
+000262 ea00          ldi ax, LOW(UBRR_VAL)
+000263 b909          out UBRRL, ax
+000264 c004      	rjmp UINITEP
+                 UART_Init2:
+000265 e000      	ldi ax, HIGH(UBRR_VAL2)
+000266 b902          out UBRRH, ax
+000267 e109          ldi ax, LOW(UBRR_VAL2)
+000268 b909          out UBRRL, ax
+                 	; Sende und Empfangsparameter setzen (wir brauchen 7N1 )
+                 UINITEP:
+000269 e004      	ldi ax, (1<<UCSZ1)
+00026a b903      	out UCSRC, ax
+00026b 9a53      	sbi UCSRB,TXEN
+00026c 9a54      	sbi UCSRB,RXEN
+00026d 9508      	ret
+                 
+                 ; ######################################################################
+                 ; ### versenden das Byte bzw. das Zeichen in ax über die 
+                 ; ### Serielle Schnittstelle 
+                 ; ######################################################################
+                 UART_WriteByte:
+                 UART_WriteByte2:
+00026e 9b5d      	sbis UCSRA, UDRE		; wenn UDRE=1 (Sendebuffer is leer, bereit für neue Daten) dann Sprung
+00026f cffe      	rjmp UART_WriteByte2	; Warten, bis vorherige Übertragung abgeschlossen ist
+000270 b90c      	out UDR, ax				; zu sendendes Byte in dem Sendebuffer ablegen
+000271 9508      	ret
+                 ; ######################################################################
+                 ; ### empfängt ein Zeichen von der Seriellen Schnittstelle, 
+                 ; ### und liefert es in ax zurück 
+                 ; ######################################################################
+                 UART_ReadByte:
+                 UART_ReadByte2:
+000272 9b5f      	sbis UCSRA, RXC			; wenn RXC=1 (Empfangsbuffer enthält Daten) dann Sprung
+000273 cffe      	rjmp UART_ReadByte2		; Warten, bis Daten im Empfangsbuffer verfügbar sind
+000274 b10c      	in ax, UDR				; Empfangsbuffer nach AX kopieren
+000275 9508      	ret
+                 
+                 ; ######################################################################
+                 ; ### prüft, ab ein Byte bzw, Zeichen gelesen werden kann ###
+                 ; ###   OUT:	CarryFlag = 0	Keine Zeichen im Empfangsbuffer 
+                 ; ###			CarryFlag = 1	Zeichen im Empfangsbuffer verfügbar
+                 ; ######################################################################
+                 UART_ByteAvailable:
+000276 9488      	clc
+000277 995f      	sbic UCSRA, RXC
+000278 9408      	sec
+000279 9508      	ret
+                 
+                 ; #######################################################
+                 ; ### ermittelt den Status der RTS-Leitung 
+                 ; ### OUT: ax = 0  Data ist Low
+                 ; ###      ax <> 0  Data ist High
+                 ; ###  Wichtig, nicht auf 1 prüfen, sondern auf <> 0
+                 ; #######################################################
+                 UART_GetRTS:
+00027a 988b      	cbi UART_DDR, UART_RTS	; RTS-Oin auf Input setzen
+00027b 0000      	nop
+00027c 0000      	nop
+                 .if ( FREQ > 1000000 )	
+00027d 0000      	nop						; bei einer Taktfrequenz höher als 1MHz etwas länger
+00027e 0000      	nop						; warten, bevor wir den PIN auslesen
+00027f 0000      	nop						; Hintergrund: wenn ich nach dem löschen des BITS im DDR-Register
+000280 0000      	nop						; sofort den PIN auslesen, hatte ich oft falsche Werte
+000281 0000      	nop						; lässt mann sich aber ein paar Cyclen Zeit stimmen die Werte
+000282 0000      	nop
+                 .endif
+000283 b300      	in ax, UART_PIN
+000284 7008      	andi ax, 1<<UART_RTS
+000285 9508      	ret
+                 
+                 ; ######################################################################
+                 ; ### Senden den Identifikationsstring über die Serielle Schnittstelle
+                 ; ######################################################################
+                 UART_SendMouseIDString:
+000286 930f      	push ax
+000287 932f      	push cx
+000288 3083      	cpi SER_MouseType, MouseType_MicrosoftWheelMouse		
+000289 f419      	brne SMIDS1
+00028a e9e6      	ldi ZL, LOW(MouseIDString_Wheelmouse*2)			; Adresse mit ID-String in den Z-Pointer
+00028b e0f5      	ldi ZH, HIGH(MouseIDString_Wheelmouse*2)
+00028c c007      	rjmp SendMouseIDString
+                 SMIDS1:
+00028d 3082      	cpi SER_MouseType, MouseType_Logitech
+00028e f419      	brne SMIDS2
+00028f e8e6      	ldi ZL, LOW(MouseIDString_Logitech*2)			; Adresse mit ID-String in den Z-Pointer
+000290 e0f5      	ldi ZH, HIGH(MouseIDString_Logitech*2)
+000291 c002      	rjmp SendMouseIDString
+                 SMIDS2:
+000292 e8e2      	ldi ZL, LOW(MouseIDString_Microsoft*2)			; Adresse mit ID-String in den Z-Pointer
+000293 e0f5      	ldi ZH, HIGH(MouseIDString_Microsoft*2)
+                 SendMouseIDString:
+000294 9125      	lpm cx, Z+										; Anzahl der zu sendenden Bytes in den Schleifenzähler CX
+                 SMIDS3:
+000295 9b5d      	sbis UCSRA, UDRE								; wenn UDRE=1 (Sendebuffer is leer, bereit für neue Daten) dann Sprung
+000296 cffe      	rjmp SMIDS3										; nicht bereit -> Abbruch, später nochmal versuchen
+000297 9105      	lpm ax, Z+										; Byte nach AX
+000298 dfd5      	rcall UART_WriteByte							; und Byte ausgeben
+000299 952a      	dec cx											; Schleifenzähler verringern
+00029a f7d1      	brne SMIDS3										; Sprung, wenn noch nicht fertig
+00029b 912f      	pop cx
+00029c 910f      	pop ax
+00029d 9508      	ret
+                 
+                 ; #################################################################
+                 ; ### Senden ein Maus-Datenpaket über die Serielle Schnittstelle
+                 ; #################################################################
+                 UART_SendMouseData:
+                 	; der Aufbau der ersten 3 Bytes sind bei Logitech und MS-Wheel Maus gleich
+00029e e400      	ldi ax, 0x40				; Das wird das erste zu sendende Byte (Bit 6 ist immer 1)
+00029f fcc0      	sbrc MouseButtonState, 0	; Linke Maustaste gedrückt -> nein, dann nächsten Befehl überspringen
+0002a0 6200      	ori ax, 0x20				; Buttonstatus der Linke Maustaste setzen
+0002a1 fcc1      	sbrc MouseButtonState, 1	; Rechte Maustaste gedrückt -> nein, dann nächsten Befehl überspringen
+0002a2 6100      	ori ax, 0x10				; Buttonstatus der Linke Maustaste setzen
+0002a3 fce7      	sbrc MouseY, 7				; Bit 7 der Y-Koordinate gesetzt -> nein, dann nächsten Befehl überspringen
+0002a4 6008      	ori ax, 0x08				; Bit setzen
+0002a5 fce6      	sbrc MouseY, 6				; Bit 6 der Y-Koordinate gesetzt -> nein, dann nächsten Befehl überspringen
+0002a6 6004      	ori ax, 0x04				; Bit setzen
+0002a7 fcd7      	sbrc MouseX, 7				; Bit 7 der X-Koordinate gesetzt -> nein, dann nächsten Befehl überspringen
+0002a8 6002      	ori ax, 0x02				; Bit setzen
+0002a9 fcd6      	sbrc MouseX, 6				; Bit 6 der X-Koordinate gesetzt -> nein, dann nächsten Befehl überspringen
+0002aa 6001      	ori ax, 0x01				; Bit setzen
+0002ab dfc2      	rcall UART_WriteByte		; Erstes Datenbyte über die Serielle Schnittstelle senden
+0002ac 2d0d      	mov ax, MouseX				; Bewegung in X-Richtung nach AX
+0002ad 730f      	andi ax, 0x3F				; die obersten 2 Bits sind immer null
+0002ae dfbf      	rcall UART_WriteByte		; zweites Datenbyte über die Serielle Schnittstelle senden
+0002af 2d0e      	mov ax, MouseY				; Bewegung in Y-Richtung nach AX
+0002b0 730f      	andi ax, 0x3F				; die obersten 2 Bits sind immer null
+0002b1 dfbc      	rcall UART_WriteByte		; drittes Datenbyte über die Serielle Schnittstelle senden
+0002b2 3083      	cpi SER_MouseType, MouseType_MicrosoftWheelMouse
+0002b3 f039      	breq USMD_WheelMouse
+0002b4 3082      	cpi SER_MouseType, MouseType_Logitech
+0002b5 f451      	brne USMD_Fertig
+                 	; Mousetype = Logitech
+0002b6 fec2      	sbrs MouseButtonState, 2	; Mittlere Maustaste gedrückt? Wenn Ja, viertes Datenbyte senden
+0002b7 c008      	rjmp USMD_Fertig			; wenn nein, dann zum Ende springen
+0002b8 e200      	ldi ax, 0x20				; Bit 5 Setzen
+0002b9 dfb4      	rcall UART_WriteByte		; viertes Datenbyte über die Serielle Schnittstelle senden (nur wenn die Mittlere Taste gedrückt ist)
+0002ba c005      	rjmp USMD_Fertig			; zum Ende springen
+                 USMD_WheelMouse:	
+                 	; Mousetype = Wheelmouse
+0002bb 2d0f      	mov ax, MouseZ				; Scrollradbewegung nach ax
+0002bc 700f      	andi ax, 0x0F				; wir nutzen nur die unteren 4 BIT's der Scrollbewegung
+0002bd fcc2      	sbrc MouseButtonState, 2	; Mittlere Maustaste gedrückt? -> nein, dann nächsten Befehl überspringen
+0002be 6100      	ori ax, 0x10				; wenn Ja, dann das 4. Bit setzen
+0002bf dfae      	rcall UART_WriteByte		; viertes Datenbyte über die Serielle Schnittstelle senden
+                 USMD_Fertig:
+0002c0 9508      	ret
+                 
+                 ; das erste Byte gibt die Anzahl der zu sendenden Bytes an	
+                 MouseIDString_Microsoft:				; ID bei Microssoft: 'M'
+0002c1 4d01
+0002c2 0000      	.db 1, "M", 0, 0					; das erste Byte gibt die Anzahl der zu sendenden Bytes an
+                 MouseIDString_Logitech:					; ID bei Logitech: 'M3' + PNP Info <Plug and Play>
+0002c3 4d0d
+0002c4 0833
+0002c5 2401
+0002c6 272c      	.db 13, "M3", 0x08, 0x01, 0x24, 0x2C, 0x27
+0002c7 1829
+0002c8 1010
+0002c9 0911
+0002ca 0000      	.db 0x29, 0x18, 0x10, 0x10, 0x11, 0x09, 0, 0 
+                 MouseIDString_Wheelmouse:				; ID bei MS Wheel: 'MZ@', 0, 0, 0 + PNP Info <Plug and Play>
+0002cb 4d52
+0002cc 405a
+0002cd 0000
+0002ce 0800      	.db 82, "MZ@", 0, 0, 0, 0x08	
+0002cf 2401
+0002d0 332d
+0002d1 1028
+0002d2 1010      	.db	0x01, 0x24, 0x2D, 0x33, 0x28, 0x10, 0x10, 0x10 
+0002d3 3c11
+0002d4 1010
+0002d5 1410
+0002d6 1210      	.db 0x11, 0x3C, 0x10, 0x10, 0x10, 0x14, 0x10, 0x12 
+0002d7 1010
+0002d8 2d3c
+0002d9 352f
+0002da 2533      	.db 0x10, 0x10, 0x3C, 0x2D, 0x2F, 0x35, 0x33, 0x25
+0002db 303c
+0002dc 302e
+0002dd 2610
+0002de 2110      	.db 0x3C, 0x30, 0x2E, 0x30, 0x10, 0x26, 0x10, 0x21
+0002df 2d3c
+0002e0 2329
+0002e1 2f32
+0002e2 2f33      	.db 0x3C, 0x2D, 0x29, 0x23, 0x32, 0x2F, 0x33, 0x2F
+0002e3 3426
+0002e4 2900
+0002e5 342e
+0002e6 2c25      	.db 0x26, 0x34, 0x00, 0x29, 0x2E, 0x34, 0x25, 0x2C
+0002e7 292c
+0002e8 2f2d
+0002e9 3335
+0002ea 0025      	.db 0x2C, 0x29, 0x2D, 0x2F, 0x35, 0x33, 0x25, 0x00
+0002eb 000d
+0002ec 2533
+0002ed 2932
+0002ee 2c21      	.db 0x0D, 0x00, 0x33, 0x25, 0x32, 0x29, 0x21, 0x2C
+0002ef 3600
+0002f0 3225
+0002f1 2933
+0002f2 2e2f      	.db 0x00, 0x36, 0x25, 0x32, 0x33, 0x29, 0x2F, 0x2E
+0002f3 1615
+0002f4 0009      	.db 0x15, 0x16, 0x09, 0
+                 .if LCD_Enabled==1
+                 .endif
+
+
+RESOURCE USE INFORMATION
+------------------------
+
+Notice:
+The register and instruction counts are symbol table hit counts,
+and hence implicitly used resources are not counted, eg, the
+'lpm' instruction without operands implicitly uses r0 and z,
+none of which are counted.
+
+x,y,z are separate entities in the symbol table and are
+counted separately from r26..r31 here.
+
+.dseg memory usage only counts static data declared with .byte
+
+"ATtiny2313A" register use summary:
+r0 :   0 r1 :   0 r2 :   0 r3 :   6 r4 :   0 r5 :   5 r6 :   6 r7 :   0 
+r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   6 r13:   7 r14:   7 r15:   7 
+r16: 182 r17:  36 r18:  23 r19:  19 r20:  12 r21:   4 r22:   0 r23:   4 
+r24:   8 r25:   3 r26:   0 r27:   0 r28:   0 r29:   0 r30:  20 r31:   6 
+x  :   0 y  :   0 z  :   3 
+Registers used: 19 out of 35 (54.3%)
+
+"ATtiny2313A" instruction use summary:
+.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   2 and   :   1 
+andi  :  13 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+brcc  :   4 brcs  :  29 break :   0 breq  :  14 brge  :   0 brhc  :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
+brne  :  31 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 cbi   :  28 cbr   :   0 clc   :  10 
+clh   :   0 cli   :   1 cln   :   0 clr   :   0 cls   :   0 clt   :   0 
+clv   :   0 clz   :   0 com   :   0 cp    :   2 cpc   :   0 cpi   :  21 
+cpse  :   0 dec   :   8 eor   :  10 icall :   0 ijmp  :   0 in    :  10 
+inc   :   1 ld    :   0 ldd   :   0 ldi   :  74 lds   :   0 lpm   :   3 
+lsl   :   2 lsr   :   4 mov   :  49 movw  :   0 neg   :   1 nop   :  30 
+or    :   1 ori   :   8 out   :  11 pop   :  26 push  :  25 rcall : 130 
+ret   :  40 reti  :   0 rjmp  :  44 rol   :   0 ror   :   0 sbc   :   0 
+sbci  :   0 sbi   :  27 sbic  :   5 sbis  :   4 sbiw  :   0 sbr   :   2 
+sbrc  :   9 sbrs  :   5 sec   :  10 seh   :   0 sei   :   0 sen   :   0 
+ser   :   0 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 
+spm   :   0 st    :   0 std   :   0 sts   :   0 sub   :   0 subi  :   0 
+swap  :   2 tst   :   6 wdr   :   0 
+Instructions used: 40 out of 105 (38.1%)
+
+"ATtiny2313A" memory use summary [bytes]:
+Segment   Begin    End      Code   Data   Used    Size   Use%
+---------------------------------------------------------------
+[.cseg] 0x000000 0x0005ea   1406    108   1514    2048  73.9%
+[.dseg] 0x000060 0x000060      0      0      0     128   0.0%
+[.eseg] 0x000000 0x000000      0      0      0     128   0.0%
+
+Assembly complete, 0 errors, 0 warnings
