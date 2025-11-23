@@ -1,0 +1,85 @@
+PS2-Mausadapter Firmware Version 1.1 
+Author: Christian Machill
+Datum: 16.02.2019
+
+
+/*
+ *  Copyright (C) 2019 Christian Machill
+ *
+ *  The Firmware, and ONLY the Firmware, is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software Foundation,
+ *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ *
+ */
+
+
+Änderungen in Version 1.1
+ - Unterstützung für Microsoft Wheel Maus. Uner DOS kann mann das Scrollrad mit dem Maustreiber Cutemouse ab Version 2.0 nutzen.
+   Cutemouse stellt eine eigenen API für DOS-Programme zur Verfügung. Zum Beispiel nutzt der StarCommander diese API. Damit kann mann 
+   es also wunderbar testen.
+
+ - Das Emulierte Maus-Protokoll ist jetzt unabhängig von der angeschlossenen Maus.
+   Es kann also auch eine MS-Wheel Maus emuliert werden, auch wenn nur eine normale 2-Tasten PS2-Maus ohne Scrollrad angeschlossen ist.
+   Oder mann kann eine Logitech Maus emulieren, obwohl eine Scrollmaus angeschlossen ist.
+
+ - Das zu emulierende Maus-Protokoll kann jetzt frei konfiguriert werden. Entweder über das beiliegende Einstellungs-Programm "PS2MASet.exe"
+   (das steht für PS2-MausAdapter Settings^^ ) oder über die DIP-Switches auf dem PS2-Adapter, falls vorhanden. 
+   Die Switches haben die folgenden Einstellmöglichkeiten:
+
+	Switch  1	Switch 2	Funktion
+	-----------------------------------------------------------------------------------------------------
+	OFF		OFF		- automatische Mausauswahl / Einstellung per Software
+	ON		OFF		- Microsoft 2-Tasten Maus
+	OFF		ON		- Logitech Maus
+	ON		ON		- Microsoft Wheel Maus
+	  
+ - Optimierung des Programcode's, damit mehr Platz im FLASH-Rom für weitere Funktionen frei wird.
+
+ - Die Firmware enthält jetzt einen Settings-Modus, mit dem es möglich ist, über die Serielle Schnittstelle einige Einstellungen für die 
+   angeschlossene PS2-Maus und den Mausadapter zu konfigurieren. Dazu wird das beiliegende Einstellungs-Programm "PS2MASET.EXE" benötigt. 
+   Es ist eine reine DOS-Anwendung, also nicht unbedingt unter Windows geeignet. Ruft mann dieses Programm ohne Parameter auf, bekommt mann 
+   eine kleine Hilfe mit den möglichen Parametern angezeigt. Die Einstellungen werden direkt im EEProm des Adapters gespeichert, müssen 
+   also nicht bei jedem Neustart des Rechners wiederholt werden. Mit diesen Einstellungen kann mann sowohl den emulierten Maustype festlegen, 
+   als auch die Auflösung, Samplerate und Skalierung. Des weiteren kann mann sich Informationen zu den aktuellen Einstellungen anzeigen lassen.
+   Die Änderungen des Maustypes sind erst nach einem Neustart des Mausadapters sichtbar. Dazu muss der Adapter kurz vom Strom getrennt werden.
+
+ - Bei den meisten KVM-Switches reagierte der PS2-Mausadapter verzögert. Zumindest fühlte es sich so an. Ich denke, das es tatsächlich ein 
+   zeitliches Problem ist. Es geht einmal Zeit verlohren, wenn die Physikalich am KVM-Swicth angeschlossene Maus ihre Bewegungsdaten zum 
+   KVM-Switch sendet. Bei einer PS2-Maus ist das etwa eine Millisekunde. Dann wertet der KVM-Switch die Daten aus, und sendet Sie an unseren
+   PS2-Mausadapter weiter. Das ist nochmal mindestens eine Millisekunde, vermutlich etwas mehr. Auch der PS2-Mausadapter muss die Daten 
+   auswerten, und diese über die noch wesentlich langsamere Serielle Schnittstelle mit 1200 Baud an den Rechner senden. Das dauert ca 8,5 Millisekunden.
+   Damit sind wir bei über 10 Milisekunden pro Sample/Datenpaket. Da viele PS2-Mäuse mit einer Samplerate von mindestens 100 Abtastungen pro 
+   Sekunde arbeiten, reicht die Zeit einfach nicht aus. Die meiste Zeit wird bei der Seriellen Übertragung benötigt. Da hilft leider auch keine 
+   schnellere Taktfrequenz des Microkontrollers. Bleibt also nur eine mögliche Lösung. Die Baudrate muss erhöht werden. Daher unterstützt die 
+   neue Firmware ab jetzt zwei Baudraten. 1200 Baud und 19200 Baud. Da die von den Mausherstellern gelieferten Maustreiber aber nur 1200 Baud
+   unterstützen, müssen bei 19200 Baud andere, bzw. modifizierte Maustreiber genommen werden. Für DOS und Windows 3.x habe ich ein paar
+   Maustreiber modifiziert und bei gelegt. Zur nutzung muss also die Baudrate im PS2-Adapter umgestellt werden und einer der beiliegenden Treiber
+   genutzt werden. 
+
+
+Ordner / Dateistruktur:
+ 
+PS2-Adapter Firmware V 1.1		die Firmware für den PS2-Mausadapter. 
+  |_ Bin				enthält das HEX-File, mit welchem der Atiny2313x oder Atiny4313 programiert werden kann
+  |_ Src				enthält den Quelltext der Firmware (Assembler, Atmel Studio 6)
+TOOLS
+  |_ Bin				enthält das DOS - Einstellungsprogramm "PS2MASET.exe" zum konfigurieren des PS2-Maus Adapters
+  |_ Src				enthält den Quelltext des Einstellungsprogrames (Borland Pascal 7.0)
+TREIBER					enthält modifizierte Maustreiber für den Betrieb mit 19200 Baud
+  |_ DOS
+  |  |_ CTMOUS19			Cutemouse V 1.9
+  |  |_ CTMOUS20			Cutemouse V 2.0
+  |  |_ CTMOUS21			Cutemouse V 2.1
+  |  |_ MSIP11				Microsoft Intelli Point Maustreiber V. 10.10
+  |_ WIN3X
+     |_ MSIP11				Installationspaket für Microsoft Intelli Point Maustreiber V. 10.10

@@ -1,0 +1,11 @@
+[files]    	      
+mouse.ex_    mouse.exe    DISK1       100000   DOSDRIVER
+mouse.en_    mouse.lan    DISK1       1000    DOSDRIVER
+msinput.ini    msinput.ini    DISK1        22016   SPECIAL
+readme.txt   readme.txt   DISK1    11776    README
+setup.ini    mouse.pid    DISK1     200     CPANEL
+mbpcpl.ex_    ipoint.exe    DISK1    43008   CPANEL
+mbpcpl.en_    ipoint.lan     DISK1    3000   CPANEL
+;
+[data]
+defdir = C:\MSINPUT
